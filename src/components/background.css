@@ -1,0 +1,9 @@
+div {
+    height: 100vh;
+}
+
+img {
+    position: fixed;
+    height: 100%;
+    z-index: -1;
+}
