@@ -1,11 +1,11 @@
 import Background from "./components/Background.jsx"
-import Homepage from "./components/Homepage.jsx"
+import Page from "./components/Page.jsx"
 
 function App() {
   return (
     <>
       <Background>
-        <Homepage/>
+        <Page/>
       </Background>
     </>
   )
