@@ -21,7 +21,7 @@ function DynamicRenderer({layout}) {
 }
 
 function Page({layout}) {
-    return <div className="homepage">
+    return <div className="page">
         {
             <DynamicRenderer layout={layout}/>
         }
