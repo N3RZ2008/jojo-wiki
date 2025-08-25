@@ -1,4 +1,4 @@
-import "./background.css"
+import "./styles/background.css"
 
 function Background({children}) {
     const backgroundStyle = {
@@ -7,7 +7,7 @@ function Background({children}) {
         backgroundRepeat: "no-repeat"
     }
 
-    return <div style={backgroundStyle}>
+    return <div className="background" style={backgroundStyle}>
         {children}
     </div>
 }
