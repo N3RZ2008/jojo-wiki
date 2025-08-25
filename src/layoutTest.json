@@ -6,6 +6,13 @@
         }
     },
     {
+        "type": "image",
+        "props": {
+            "src": "https://preview.redd.it/ynkpuhf9w1ny.jpg?width=1080&crop=smart&auto=webp&s=791030baa839e17b2813bde54e10315ca13e60ca",
+            "height": "50vh"
+        }
+    },
+    {
         "type": "container",
         "children": [
             {

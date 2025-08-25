@@ -1,10 +1,11 @@
-import {Title, Paragraph, Container} from "./pageComponents"
+import {Title, Paragraph, Container, Image} from "./pageComponents"
 import "./styles/page.css"
 
 const componentMap = {
     title: Title,
     paragraph: Paragraph,
-    container: Container
+    container: Container,
+    image: Image
 }
 
 function DynamicRenderer({layout}) {

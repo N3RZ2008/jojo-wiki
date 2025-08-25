@@ -1,4 +1,5 @@
 import "./styles/container.css"
+import "./styles/image.css"
 
 export function Title({children}) {
     return(
@@ -9,6 +10,15 @@ export function Title({children}) {
 export function Paragraph({children}) {
     return(
         <p>{children}</p>
+    )
+}
+
+export function Image({src, height}) {
+    const imageStyle = {
+        height: height
+    }
+    return(
+        <img className="image" src={src} style={imageStyle}></img>
     )
 }
 
