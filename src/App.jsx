@@ -9,8 +9,8 @@ function App() {
     <>
       <Background>
         <Menu/>
-        {/* <Page layout={test}/> */}
-        <Adder/>
+        <Page layout={test}/>
+        {/* <Adder/> */}
       </Background>
     </>
   )

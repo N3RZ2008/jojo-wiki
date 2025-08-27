@@ -1,5 +1,6 @@
 .menu {
     height: 10vh;
+    width: calc(100vw - 120px);
     background-color: #ac824c;
     display: flex;
     justify-content: space-around;
