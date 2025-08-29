@@ -12,3 +12,12 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
+.editMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 10vw;
+    height: 10vh;
+    align-self: flex-end;
+}

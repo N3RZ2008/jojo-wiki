@@ -1,7 +1,18 @@
+import Modal from "./Modal.jsx"
 import "./styles/container.css"
 import "./styles/image.css"
 
 export function Title({children}) {
+
+    function edit(key) {
+        if (!key) {
+            return
+        }
+        <Modal>
+            Title
+        </Modal>
+    }
+
     return(
         <h1>{children}</h1>
     )

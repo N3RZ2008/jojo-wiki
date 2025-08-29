@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState } from "react"
+import Page from "./Page.jsx"
 import Modal from "./Modal.jsx"
-import "./styles/page.css"
-// import "./styles/adder.css"
 
 function Adder() {
+    const [editMode, setEditMode] = useState(true)
     const [isOpen, setIsOpen] = useState(false)
-    // const [page, setPage] = useState([])
+    const [page, setPage] = useState([])
+
+    function addComp(type) {
+        setPage([
+            ...page,
+            {"type": type, "props": {"children": "Title"}}
+        ])
+    }
 
     return(
-        <div className="page">
+        <div className="adderPage">
+            <Page layout={page} editMode={editMode}/>
             <button onClick={() => setIsOpen(true)}>Add</button>
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                <select name="component" id="component">
-                    <option value="title">Title</option>
-                    <option value="paragraph">Paragraph</option>
-                </select>
+                <button onClick={() => addComp("title")}>Title</button>
             </Modal>
         </div>
     )
