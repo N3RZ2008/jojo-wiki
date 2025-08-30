@@ -10,7 +10,6 @@
 .menuItem {
     display: flex;
     height: 100%;
-    width: 20%;
     justify-content: space-around;
     align-items: center;
 }

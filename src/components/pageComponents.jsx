@@ -1,26 +1,77 @@
+import { useState } from "react"
 import Modal from "./Modal.jsx"
 import "./styles/container.css"
 import "./styles/image.css"
 
-export function Title({children}) {
+export function Title({id, children, editMode, updater, deleter}) {
+    const [isOpen, setIsOpen] = useState(false)
+    const [value, setValue] = useState(children)
 
-    function edit(key) {
-        if (!key) {
+    function edit(editMode) {
+        if (!editMode) {
             return
         }
-        <Modal>
-            Title
-        </Modal>
+        setIsOpen(true)
     }
 
     return(
-        <h1>{children}</h1>
+        <>
+            <h1 onClick={() => edit(editMode)}>{value}</h1>
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                <label>
+                    <input 
+                        name="Title" 
+                        value={value} 
+                        onChange={(e) => setValue(e.target.value)}
+                    />  
+                    <button onClick={() => {
+                        if (value == "") setValue("Insert text here")
+                        updater(id, value);
+                        setIsOpen(false)
+                    }}>Submit</button>
+                </label>
+                <button onClick={() => {
+                    deleter(id)
+                    setIsOpen(false)
+                }}>Delete</button>
+            </Modal>
+        </>
     )
 }
 
-export function Paragraph({children}) {
+export function Paragraph({id, children, editMode, updater, deleter}) {
+    const [isOpen, setIsOpen] = useState(false)
+    const [value, setValue] = useState(children)
+
+    function edit(editMode) {
+        if (!editMode) {
+            return
+        }
+        setIsOpen(true)
+    }
+
     return(
-        <p>{children}</p>
+        <>
+            <p onClick={() => edit(editMode)}>{value}</p>
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                <label>
+                    <textarea 
+                        name="Paragraph" 
+                        value={value} 
+                        onChange={(e) => setValue(e.target.value)}
+                    />  
+                    <button onClick={() => {
+                        if (value == "") setValue("Insert text here")
+                        updater(id, value);
+                        setIsOpen(false)
+                    }}>Submit</button>
+                </label>
+                <button onClick={() => {
+                    deleter(id)
+                    setIsOpen(false)
+                }}>Delete</button>
+            </Modal>
+        </>
     )
 }
 
