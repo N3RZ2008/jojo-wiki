@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react"
-import {Title, Paragraph, Container, Image} from "./pageComponents"
-import Modal from "./Modal.jsx"
+import { useContext, useState } from "react"
+import ReactDOM from "react-dom"
+import {Title, Paragraph, TwoParagraph, Image} from "./pageComponents"
+import { PageContext } from "./PageProvider.jsx"
 import "./styles/page.css"
 
 const componentMap = {
     title: Title,
     paragraph: Paragraph,
-    container: Container,
+    twoParagraph: TwoParagraph,
     image: Image
 }
 
@@ -25,12 +26,7 @@ function DynamicRenderer({layout, editMode, updater, deleter}) {
                 updater={updater}
                 deleter={deleter}
                 >
-                    {item.children ? <DynamicRenderer
-                    layout={item.children}
-                    editMode={editMode}
-                    updater={updater}
-                    deleter={deleter}
-                    /> : item.props.children}
+                    
                 </Component>
             }
         )
@@ -38,9 +34,9 @@ function DynamicRenderer({layout, editMode, updater, deleter}) {
 }
 
 function Page({layout = []}) {
-    const [editMode, setEditMode] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
+    // const [editMode, setEditMode] = useState(false)
     const [page, setPage] = useState(() => layout)
+    const { editMode } = useContext(PageContext)
 
     function addComp(type) {
         setPage([
@@ -81,29 +77,25 @@ function Page({layout = []}) {
         if (layout == page) setPage(update);
         return update
     }
-    
-    function switchMode() {
-        if(editMode) {
-            setEditMode(false)
-            return
-        }
-        setEditMode(true)
-        return
-    }
 
     return <div className="page">
         {<>
-            <button onClick={() => switchMode()}>Switch Mode</button>
             <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp}/>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            {/* <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <button onClick={() => addComp("title")}>Title</button>
-            </Modal>
+            </Modal> */}
         </>
         }
         {editMode && 
-        <div className="editMenu">
-            <button onClick={() => setIsOpen(true)}>Add</button>
-        </div>}
+        ReactDOM.createPortal(
+            <div className="editMenu">
+                {/* <button onClick={() => setIsOpen(true)}>Add</button> */}
+                <button onClick={() => addComp("title")}>Add Title</button>
+                <button onClick={() => addComp("paragraph")}>Add Paragraph</button>
+                {/* <button onClick={() => console.log(page)}>Debug</button> */}
+            </div>,
+            document.getElementById("edit-menu-root")
+        )}
     </div>
 }
 

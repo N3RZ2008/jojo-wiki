@@ -14,10 +14,14 @@
 }
 .editMenu {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: fixed;
     width: 10vw;
     height: 10vh;
-    align-self: flex-end;
+    transform: translate(900%, 900%);
+}
+.editMenu button {
+    width: 100%;
 }

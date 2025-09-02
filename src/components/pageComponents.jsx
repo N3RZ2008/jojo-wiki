@@ -1,45 +1,36 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Modal from "./Modal.jsx"
-import "./styles/container.css"
-import "./styles/image.css"
+import "./styles/pageComponents.css"
 
-export function Title({id, children, editMode, updater, deleter}) {
-    const [isOpen, setIsOpen] = useState(false)
+export function Title({ id, children, editMode, updater, deleter }) {
     const [value, setValue] = useState(children)
 
-    function edit(editMode) {
-        if (!editMode) {
-            return
-        }
-        setIsOpen(true)
-    }
+    useEffect(() => {
+        updater(id, value)
+    }, [value])
 
-    return(
-        <>
-            <h1 onClick={() => edit(editMode)}>{value}</h1>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                <label>
-                    <input 
-                        name="Title" 
-                        value={value} 
-                        onChange={(e) => setValue(e.target.value)}
-                    />  
-                    <button onClick={() => {
-                        if (value == "") setValue("Insert text here")
-                        updater(id, value);
-                        setIsOpen(false)
-                    }}>Submit</button>
-                </label>
+    if (editMode) {
+        return (
+            <div className="title">
+                <input
+                    className="titleInput"
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                />
                 <button onClick={() => {
                     deleter(id)
                     setIsOpen(false)
                 }}>Delete</button>
-            </Modal>
-        </>
-    )
+            </div>
+        )
+    }
+    
+    if (value == "") setValue("Insert text here")
+    return <h1>{value}</h1>
 }
 
-export function Paragraph({id, children, editMode, updater, deleter}) {
+export function Paragraph({ id, children, editMode, updater, deleter }) {
     const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState(children)
 
@@ -50,16 +41,16 @@ export function Paragraph({id, children, editMode, updater, deleter}) {
         setIsOpen(true)
     }
 
-    return(
+    return (
         <>
             <p onClick={() => edit(editMode)}>{value}</p>
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <label>
-                    <textarea 
-                        name="Paragraph" 
-                        value={value} 
+                    <textarea
+                        name="Paragraph"
+                        value={value}
                         onChange={(e) => setValue(e.target.value)}
-                    />  
+                    />
                     <button onClick={() => {
                         if (value == "") setValue("Insert text here")
                         updater(id, value);
@@ -75,22 +66,20 @@ export function Paragraph({id, children, editMode, updater, deleter}) {
     )
 }
 
-export function Image({src, height}) {
+export function Image({ src, height }) {
     const imageStyle = {
         height: height
     }
-    return(
+    return (
         <img className="image" src={src} style={imageStyle}></img>
     )
 }
 
-export function Container({children, direction}) {
-    const containerStyle = {
-        flexDirection: direction
-    }
-    return(
-        <div className="container" style={containerStyle}>
-            {children}
+export function TwoParagraph({ childrenA, childrenB }) {
+    return (
+        <div className="container">
+            <p>{childrenA}</p>
+            <p>{childrenB}</p>
         </div>
     )
 }

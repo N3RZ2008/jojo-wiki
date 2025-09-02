@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.container :nth-child(n) {
+    flex: 1 1 0;
+}
+@media screen and (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+.image {
+    max-width: 100%;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleInput {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    background-color: hsla(0, 0%, 0%, 0);
+    border: none;
+    padding: 0;
+}

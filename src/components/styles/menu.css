@@ -12,6 +12,7 @@
     height: 100%;
     justify-content: space-around;
     align-items: center;
+    user-select: none;
 }
 
 .menuItem:hover {
