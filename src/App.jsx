@@ -10,8 +10,7 @@ function App() {
       <Background>
         <PageProvider>
           <Menu/>
-          <Page layout={test}/>  
-          {/* <Page/> */}
+          <Page/>
         </PageProvider>
       </Background>
     </>
