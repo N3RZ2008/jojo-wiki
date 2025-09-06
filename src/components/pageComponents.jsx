@@ -20,7 +20,6 @@ export function Title({ id, children, editMode, updater, deleter }) {
                 />
                 <button onClick={() => {
                     deleter(id)
-                    setIsOpen(false)
                 }}>Delete</button>
             </div>
         )
@@ -48,7 +47,6 @@ export function Paragraph({ id, children, editMode, updater, deleter }) {
                 />
                 <button onClick={() => {
                     deleter(id)
-                    setIsOpen(false)
                 }}>Delete</button>
             </div>
         )
@@ -58,12 +56,48 @@ export function Paragraph({ id, children, editMode, updater, deleter }) {
     return <p>{value}</p>
 }
 
-export function Image({ src, height }) {
+export function Image({ id, src, height, editMode, updater, deleter }) {
+    const [srcValue, setSrcValue] = useState(src)
+    const [heightValue, setHeightValue] = useState(parseInt(height))
     const imageStyle = {
-        height: height
+        height: `${heightValue}vh`
     }
+
+    useEffect(() => {
+        updater(id, srcValue, heightValue)
+    }, [srcValue, heightValue])
+
+    if (editMode) {
+        return (
+            <div className="imageContainer">
+                <img className="image" src={srcValue} style={imageStyle} />
+                <div>
+                    <input
+                        className="imageInput"
+                        type="text"
+                        value={srcValue}
+                        placeholder="Insert URL"
+                        onChange={(e) => setSrcValue(e.target.value)}
+                    />
+                    <input
+                        className="imageInput"
+                        type="number"
+                        value={heightValue}
+                        min={"1"}
+                        max={"100"}
+                        placeholder="Insert height"
+                        onChange={(e) => setHeightValue(e.target.value)}
+                    />
+                </div>
+                <button onClick={() => {
+                    deleter(id)
+                }}>Delete</button>
+            </div>
+        )
+    }
+
     return (
-        <img className="image" src={src} style={imageStyle}></img>
+        <img className="image" src={srcValue} style={imageStyle} />
     )
 }
 
@@ -94,7 +128,6 @@ export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, dele
                 </div>
                 <button onClick={() => {
                     deleter(id)
-                    setIsOpen(false)
                 }}>Delete</button>
             </>
         )

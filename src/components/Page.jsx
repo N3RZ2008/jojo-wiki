@@ -51,6 +51,34 @@ function Page({ pageName = "teste" }) {
     }, [find, loading])
 
     function addComp(type) {
+        if (type.toString() === "twoParagraph") {
+            setPage([
+                ...page,
+                {
+                    "id": crypto.randomUUID(),
+                    "type": type,
+                    "props": {
+                        "childrenA": "Insert text here",
+                        "childrenB": "Insert text here"
+                    }
+                }
+            ])
+            return
+        }
+        if (type.toString() === "image") {
+            setPage([
+                ...page,
+                {
+                    "id": crypto.randomUUID(),
+                    "type": type,
+                    "props": {
+                        "src": "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
+                        "height": "50vh"
+                    }
+                }
+            ])
+            return
+        }
         setPage([
             ...page,
             {
@@ -58,18 +86,19 @@ function Page({ pageName = "teste" }) {
                 "type": type,
                 "props": {
                     "children": "Insert text here",
-                    "childrenA": "Insert text here",
-                    "childrenB": "Insert text here"
                 }
             }
         ])
     }
 
-    function updateComp(id, children, childrenA, childrenB, layout = page) {
+    function updateComp(id, children, childrenA, srcValue, heightValue, childrenB, layout = page) {
         const update = layout.map(comp => {
             if (comp.id === id) {
                 if (childrenA & childrenB) {
                     return { ...comp, props: { ...comp.props, childrenA: childrenA, childrenB: childrenB } }
+                }
+                if (srcValue & heightValue) {
+                    return { ...comp, props: { ...comp.props, src: srcValue, height: `${heightValue}vh` } }
                 }
                 return { ...comp, props: { ...comp.props, children: children } }
             }
@@ -106,6 +135,7 @@ function Page({ pageName = "teste" }) {
                     <button onClick={() => addComp("title")}>Add Title</button>
                     <button onClick={() => addComp("paragraph")}>Add Paragraph</button>
                     <button onClick={() => addComp("twoParagraph")}>Add 2 Paragraphs</button>
+                    <button onClick={() => addComp("image")}>Add Image</button>
                     {/* <button onClick={() => console.log(page)}>Debug</button> */}
                 </div>,
                 document.getElementById("edit-menu-root")
