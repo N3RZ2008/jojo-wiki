@@ -25,45 +25,37 @@ export function Title({ id, children, editMode, updater, deleter }) {
             </div>
         )
     }
-    
+
     if (value == "") setValue("Insert text here")
     return <h1>{value}</h1>
 }
 
 export function Paragraph({ id, children, editMode, updater, deleter }) {
-    const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState(children)
 
-    function edit(editMode) {
-        if (!editMode) {
-            return
-        }
-        setIsOpen(true)
-    }
+    useEffect(() => {
+        updater(id, value)
+    }, [value])
 
-    return (
-        <>
-            <p onClick={() => edit(editMode)}>{value}</p>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                <label>
-                    <textarea
-                        name="Paragraph"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                    />
-                    <button onClick={() => {
-                        if (value == "") setValue("Insert text here")
-                        updater(id, value);
-                        setIsOpen(false)
-                    }}>Submit</button>
-                </label>
+    if (editMode) {
+        return (
+            <div className="paragraph">
+                <textarea
+                    className="paragraphInput"
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                />
                 <button onClick={() => {
                     deleter(id)
                     setIsOpen(false)
                 }}>Delete</button>
-            </Modal>
-        </>
-    )
+            </div>
+        )
+    }
+
+    if (value == "") setValue("Insert text here")
+    return <p>{value}</p>
 }
 
 export function Image({ src, height }) {
@@ -75,11 +67,43 @@ export function Image({ src, height }) {
     )
 }
 
-export function TwoParagraph({ childrenA, childrenB }) {
+export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, deleter }) {
+    const [valueA, setValueA] = useState(childrenA)
+    const [valueB, setValueB] = useState(childrenB)
+
+    if (editMode) {
+        return (
+            <>
+                <div className="container twoParagraph">
+                    <div className="paragraph twoParagraphP">
+                        <textarea
+                            className="paragraphInput"
+                            type="text"
+                            value={valueA}
+                            onChange={(e) => setValueA(e.target.value)}
+                        />
+                    </div>
+                    <div className="paragraph twoParagraphP">
+                        <textarea
+                            className="paragraphInput"
+                            type="text"
+                            value={valueB}
+                            onChange={(e) => setValueB(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <button onClick={() => {
+                    deleter(id)
+                    setIsOpen(false)
+                }}>Delete</button>
+            </>
+        )
+    }
+
     return (
         <div className="container">
-            <p>{childrenA}</p>
-            <p>{childrenB}</p>
+            <p>{valueA}</p>
+            <p>{valueB}</p>
         </div>
     )
 }

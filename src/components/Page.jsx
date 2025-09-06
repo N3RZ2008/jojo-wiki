@@ -57,15 +57,20 @@ function Page({ pageName = "teste" }) {
                 "id": crypto.randomUUID(),
                 "type": type,
                 "props": {
-                    "children": "Insert text here"
+                    "children": "Insert text here",
+                    "childrenA": "Insert text here",
+                    "childrenB": "Insert text here"
                 }
             }
         ])
     }
 
-    function updateComp(id, children, layout = page) {
+    function updateComp(id, children, childrenA, childrenB, layout = page) {
         const update = layout.map(comp => {
             if (comp.id === id) {
+                if (childrenA & childrenB) {
+                    return { ...comp, props: { ...comp.props, childrenA: childrenA, childrenB: childrenB } }
+                }
                 return { ...comp, props: { ...comp.props, children: children } }
             }
             if (comp.children) {
@@ -100,6 +105,7 @@ function Page({ pageName = "teste" }) {
                     {/* <button onClick={() => setIsOpen(true)}>Add</button> */}
                     <button onClick={() => addComp("title")}>Add Title</button>
                     <button onClick={() => addComp("paragraph")}>Add Paragraph</button>
+                    <button onClick={() => addComp("twoParagraph")}>Add 2 Paragraphs</button>
                     {/* <button onClick={() => console.log(page)}>Debug</button> */}
                 </div>,
                 document.getElementById("edit-menu-root")
