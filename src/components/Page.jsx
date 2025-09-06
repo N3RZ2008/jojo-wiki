@@ -2,7 +2,9 @@ import { useContext, useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 import { Title, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { PageContext } from "./PageProvider.jsx"
-import useDBFind from "./useDBFind.jsx"
+import Modal from "./Modal.jsx"
+import findOne from "../database/find.jsx"
+import Insert from "../database/insert.jsx"
 import "./styles/page.css"
 
 const componentMap = {
@@ -24,31 +26,38 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
                     editMode={editMode}
                     updater={updater}
                     deleter={deleter}
-                >
-
-                </Component>
+                />
             }
         )
     )
 }
 
-function Page({ pageName = "teste" }) {
+function Page({ insertedName = "teste" }) {
     const [page, setPage] = useState([])
-    const { find, findFilter, loading } = useDBFind("stands", pageName)
+    const [isOpen, setIsOpen] = useState(false)
+    const [pageName, setPageName] = useState("")
+    const errorPage = [
+        {
+            "id": 1,
+            "type": "title",
+            "props": {
+                "children": "404"
+            }
+        }
+    ]
+    const { find, loading } = findOne("stands", insertedName)
     const { editMode } = useContext(PageContext)
 
     useEffect(() => {
         if (!loading) {
-            if (findFilter) {
-                setPage(findFilter[0].page)
-                // console.log(findFilter)
+            if (find !== null) {
+                setPage(find.page)
             }
             else {
-                setPage(find[0].page)
-                // console.log(find.filter((page) => page.data.pageName === "teste"))
+                setPage(errorPage)
             }
         }
-    }, [find, loading])
+    }, [loading])
 
     function addComp(type) {
         if (type.toString() === "twoParagraph") {
@@ -124,10 +133,37 @@ function Page({ pageName = "teste" }) {
         return update
     }
 
+    async function tryInsert(pageName) {
+        if (pageName === "") return alert("Insert something first")
+
+        const res = await fetch(`/api/stands/${pageName}`)
+        const data = await res.json()
+        if (!data.error) return alert("This name is not avaliable")
+
+        const dataInsert = {
+            data: {
+                pageName: pageName,
+                date: new Date()
+            },
+            page: page
+        }
+        alert("Sucessfully inserted page")
+        Insert("stands", dataInsert)
+    }
+
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page">
         <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <input
+                type="text"
+                value={pageName}
+                placeholder="Insert page name"
+                onChange={(e) => setPageName(e.target.value)}
+            />
+            <button onClick={() => tryInsert(pageName)}>Submit</button>
+        </Modal>
         {editMode &&
             ReactDOM.createPortal(
                 <div className="editMenu">
@@ -136,6 +172,7 @@ function Page({ pageName = "teste" }) {
                     <button onClick={() => addComp("paragraph")}>Add Paragraph</button>
                     <button onClick={() => addComp("twoParagraph")}>Add 2 Paragraphs</button>
                     <button onClick={() => addComp("image")}>Add Image</button>
+                    <button onClick={() => setIsOpen(true)}>Submit Page</button>
                     {/* <button onClick={() => console.log(page)}>Debug</button> */}
                 </div>,
                 document.getElementById("edit-menu-root")
