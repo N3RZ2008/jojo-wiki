@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "type": "title",
+        "type": "heading",
         "props": {
             "children": "Json Test"
         }

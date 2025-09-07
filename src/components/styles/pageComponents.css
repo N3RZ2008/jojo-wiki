@@ -26,12 +26,12 @@
     width: 50%;
 }
 
-.title {
+.heading {
     display: flex;
     flex-direction: column;
 }
 
-.titleInput {
+.headingInput {
     color: white;
     font-size: 32px;
     font-weight: bold;

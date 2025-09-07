@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import ReactDOM from "react-dom"
-import { Title, Paragraph, TwoParagraph, Image } from "./pageComponents"
+import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { PageContext } from "./PageProvider.jsx"
 import Modal from "./Modal.jsx"
 import HeadingIcon from "./icons/HeadingIcon.jsx"
@@ -13,7 +13,7 @@ import Insert from "../database/insert.jsx"
 import "./styles/page.css"
 
 const componentMap = {
-    title: Title,
+    heading: Heading,
     paragraph: Paragraph,
     twoParagraph: TwoParagraph,
     image: Image
@@ -44,7 +44,7 @@ function Page({ insertedName = "teste" }) {
     const errorPage = [
         {
             "id": 1,
-            "type": "title",
+            "type": "heading",
             "props": {
                 "children": "404"
             }
@@ -161,6 +161,7 @@ function Page({ insertedName = "teste" }) {
     return <div className="page">
         <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <h1>Submit Page</h1>
             <input
                 type="text"
                 value={pageName}
@@ -172,7 +173,7 @@ function Page({ insertedName = "teste" }) {
         {editMode &&
             ReactDOM.createPortal(
                 <div className="editMenu">
-                    <button className="editMenuButton" onClick={() => addComp("title")}><HeadingIcon/></button>
+                    <button className="editMenuButton" onClick={() => addComp("heading")}><HeadingIcon/></button>
                     <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon/></button>
                     <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon/></button>
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon/></button>

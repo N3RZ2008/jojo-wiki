@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import Modal from "./Modal.jsx"
 import "./styles/pageComponents.css"
 
-export function Title({ id, children, editMode, updater, deleter }) {
+export function Heading({ id, children, editMode, updater, deleter }) {
     const [value, setValue] = useState(children)
 
     useEffect(() => {
@@ -11,9 +10,9 @@ export function Title({ id, children, editMode, updater, deleter }) {
 
     if (editMode) {
         return (
-            <div className="title">
+            <div className="heading">
                 <input
-                    className="titleInput"
+                    className="headingInput"
                     type="text"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
