@@ -37,7 +37,7 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
     )
 }
 
-function Page({ insertedName = "compTest" }) {
+function Page({ insertedName = "teste" }) {
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [pageName, setPageName] = useState("")
