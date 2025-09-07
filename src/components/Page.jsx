@@ -8,9 +8,10 @@ import ParagraphIcon from "./icons/ParagraphIcon.jsx"
 import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
 import ImageIcon from "./icons/ImageIcon.jsx"
 import SubmitIcon from "./icons/SubmitIcon.jsx"
-import findOne from "../database/find.jsx"
+import findOne from "../database/findOne.jsx"
 import Insert from "../database/insert.jsx"
 import "./styles/page.css"
+import { useParams } from "react-router-dom"
 
 const componentMap = {
     heading: Heading,
@@ -37,7 +38,8 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
     )
 }
 
-function Page({ insertedName = "compTest" }) {
+function Page() {
+    const { insertedName } = useParams()
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [pageName, setPageName] = useState("")

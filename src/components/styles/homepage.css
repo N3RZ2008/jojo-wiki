@@ -1,0 +1,9 @@
+.catalog {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.catalog a {
+    color: hsl(180, 100%, 50%);
+}

@@ -1,16 +1,17 @@
 import { useContext } from "react";
 import "./styles/menu.css";
 import { PageContext } from "./PageProvider";
+import { Link } from "react-router-dom";
 
 
-function Menu({switchMode}) {
+function Menu() {
     const { editMode, setEditMode } = useContext(PageContext)
     const menuStyle = {
         width: "20vw"
     }
 
     function switchMode() {
-        if(editMode) {
+        if (editMode) {
             setEditMode(false)
             return
         }
@@ -18,9 +19,11 @@ function Menu({switchMode}) {
         return
     }
 
-    return(
+    return (
         <div className="menu">
-            <div className="menuItem" style={menuStyle}>Item 1</div>
+            <Link to={"/"}>
+                <div className="menuItem" style={menuStyle}>Homepage</div>
+            </Link>
             <div className="menuItem" style={menuStyle}>Item 2</div>
             <div className="menuItem" style={menuStyle}>Item 3</div>
             <div className="menuItem" style={menuStyle}>Item 4</div>
