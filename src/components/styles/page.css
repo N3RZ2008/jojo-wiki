@@ -4,6 +4,7 @@
     width: calc(100vw - 120px);
     margin: 0 60px;
     padding: 30px 30px;
+    padding-bottom: 150px;
     background-color: hsla(0, 0%, 0%, 0.8);
     display: flex;
     flex-direction: column;
@@ -12,16 +13,37 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
+
 .editMenu {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    position: fixed;
-    width: 10vw;
-    height: 10vh;
-    transform: translate(900%, 900%);
+    width: 50%;
+    height: 7vh;
+    padding: 0 5vw;
+    border-radius: 1000px;
+    background-color: hsla(0, 0%, 0%, 0.7);
+    z-index: 999;
 }
-.editMenu button {
+
+.editMenuButton {
+    width: 50px;
+    height: 50px;
+    border: solid 1px white;
+    border-radius: 100px;
+    background-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.editMenuButton svg {
+    fill: #FFFFFF;
+    height: 100%;
     width: 100%;
+}
+
+.editMenuButton:hover {
+    background-color: hsla(0, 0%, 0%, 1);
+}
+
+.editMenuButton:hover svg {
+    fill: #DDDDDD;
 }

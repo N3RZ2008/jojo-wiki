@@ -3,6 +3,11 @@ import ReactDOM from "react-dom"
 import { Title, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { PageContext } from "./PageProvider.jsx"
 import Modal from "./Modal.jsx"
+import HeadingIcon from "./icons/HeadingIcon.jsx"
+import ParagraphIcon from "./icons/ParagraphIcon.jsx"
+import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
+import ImageIcon from "./icons/ImageIcon.jsx"
+import SubmitIcon from "./icons/SubmitIcon.jsx"
 import findOne from "../database/find.jsx"
 import Insert from "../database/insert.jsx"
 import "./styles/page.css"
@@ -167,12 +172,11 @@ function Page({ insertedName = "teste" }) {
         {editMode &&
             ReactDOM.createPortal(
                 <div className="editMenu">
-                    {/* <button onClick={() => setIsOpen(true)}>Add</button> */}
-                    <button onClick={() => addComp("title")}>Add Title</button>
-                    <button onClick={() => addComp("paragraph")}>Add Paragraph</button>
-                    <button onClick={() => addComp("twoParagraph")}>Add 2 Paragraphs</button>
-                    <button onClick={() => addComp("image")}>Add Image</button>
-                    <button onClick={() => setIsOpen(true)}>Submit Page</button>
+                    <button className="editMenuButton" onClick={() => addComp("title")}><HeadingIcon/></button>
+                    <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon/></button>
+                    <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon/></button>
+                    <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon/></button>
+                    <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon/></button>
                     {/* <button onClick={() => console.log(page)}>Debug</button> */}
                 </div>,
                 document.getElementById("edit-menu-root")

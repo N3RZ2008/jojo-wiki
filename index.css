@@ -1,0 +1,7 @@
+#edit-menu-root {
+    height: 100vh;
+    padding: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
