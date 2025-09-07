@@ -39,6 +39,7 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
 }
 
 function Page() {
+    const { insertedName } = useParams()
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [pageName, setPageName] = useState("")
