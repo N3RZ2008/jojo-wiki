@@ -63,7 +63,7 @@ export function Image({ id, src, height, editMode, updater, deleter }) {
     }
 
     useEffect(() => {
-        updater(id, srcValue, heightValue)
+        updater(id, null, null, srcValue, heightValue, null)
     }, [srcValue, heightValue])
 
     if (editMode) {
@@ -103,6 +103,10 @@ export function Image({ id, src, height, editMode, updater, deleter }) {
 export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, deleter }) {
     const [valueA, setValueA] = useState(childrenA)
     const [valueB, setValueB] = useState(childrenB)
+
+    useEffect(() => {
+        updater(id, null, valueA, null, null, valueB)
+    }, [valueA, valueB])
 
     if (editMode) {
         return (

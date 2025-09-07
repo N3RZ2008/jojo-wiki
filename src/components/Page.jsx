@@ -37,7 +37,7 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
     )
 }
 
-function Page({ insertedName = "teste" }) {
+function Page({ insertedName = "compTest" }) {
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [pageName, setPageName] = useState("")
@@ -108,10 +108,10 @@ function Page({ insertedName = "teste" }) {
     function updateComp(id, children, childrenA, srcValue, heightValue, childrenB, layout = page) {
         const update = layout.map(comp => {
             if (comp.id === id) {
-                if (childrenA & childrenB) {
+                if (childrenA && childrenB) {
                     return { ...comp, props: { ...comp.props, childrenA: childrenA, childrenB: childrenB } }
                 }
-                if (srcValue & heightValue) {
+                if (srcValue && heightValue) {
                     return { ...comp, props: { ...comp.props, src: srcValue, height: `${heightValue}vh` } }
                 }
                 return { ...comp, props: { ...comp.props, children: children } }
@@ -178,7 +178,7 @@ function Page({ insertedName = "teste" }) {
                     <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon/></button>
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon/></button>
                     <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon/></button>
-                    {/* <button onClick={() => console.log(page)}>Debug</button> */}
+                    <button onClick={() => console.log(page)}>D</button>
                 </div>,
                 document.getElementById("edit-menu-root")
             )}
