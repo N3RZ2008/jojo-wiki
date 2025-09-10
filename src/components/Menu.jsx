@@ -3,7 +3,6 @@ import "./styles/menu.css";
 import { PageContext } from "./PageProvider";
 import { Link } from "react-router-dom";
 
-
 function Menu() {
     const { editMode, setEditMode } = useContext(PageContext)
     const menuStyle = {
@@ -24,7 +23,9 @@ function Menu() {
             <Link to={"/"}>
                 <div className="menuItem" style={menuStyle}>Homepage</div>
             </Link>
-            <div className="menuItem" style={menuStyle}>Item 2</div>
+            <Link to={"/page"}>
+                <div className="menuItem" style={menuStyle}>Create Page</div>
+            </Link>
             <div className="menuItem" style={menuStyle}>Item 3</div>
             <div className="menuItem" style={menuStyle}>Item 4</div>
             <div onClick={switchMode} className="menuItem" style={menuStyle}>Switch Mode</div>

@@ -1,0 +1,28 @@
+.cardGrid {
+    display: grid;
+    width: 70%;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-items: center;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.card {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: max(5px, 1vh);
+    background-color: #ac824c;
+    border: solid 1px;
+    border-radius: 20px;
+    word-break: break-all;
+}
+
+.card img {
+    width: 80%;
+    height: 20vh;
+    object-fit: cover;
+    border-radius: 20px;
+}

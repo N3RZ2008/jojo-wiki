@@ -43,6 +43,7 @@ function Page() {
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [pageName, setPageName] = useState("")
+    const [imgSrc, setImgSrc] = useState("")
     const errorPage = [
         {
             "id": 1,
@@ -61,7 +62,11 @@ function Page() {
                 setPage(find.page)
             }
             else {
-                setPage(errorPage)
+                if (insertedName === undefined) {
+                    setPage([])
+                } else {
+                    setPage(errorPage)
+                }
             }
         }
     }, [loading])
@@ -150,6 +155,7 @@ function Page() {
         const dataInsert = {
             data: {
                 pageName: pageName,
+                imgSrc: imgSrc,
                 date: new Date()
             },
             page: page
@@ -170,16 +176,23 @@ function Page() {
                 placeholder="Insert page name"
                 onChange={(e) => setPageName(e.target.value)}
             />
-            <button onClick={() => tryInsert(pageName)}>Submit</button>
+            <input
+                className="imageInput"
+                type="text"
+                value={imgSrc}
+                placeholder="Insert URL"
+                onChange={(e) => setImgSrc(e.target.value)}
+            />
+            <button onClick={() => tryInsert(pageName, imgSrc)}>Submit</button>
         </Modal>
         {editMode &&
             ReactDOM.createPortal(
                 <div className="editMenu">
-                    <button className="editMenuButton" onClick={() => addComp("heading")}><HeadingIcon/></button>
-                    <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon/></button>
-                    <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon/></button>
-                    <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon/></button>
-                    <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon/></button>
+                    <button className="editMenuButton" onClick={() => addComp("heading")}><HeadingIcon /></button>
+                    <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon /></button>
+                    <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon /></button>
+                    <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon /></button>
+                    <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>
                     <button onClick={() => console.log(page)}>D</button>
                 </div>,
                 document.getElementById("edit-menu-root")
