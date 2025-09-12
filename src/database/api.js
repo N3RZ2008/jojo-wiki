@@ -1,1 +1,1 @@
-export const api = "https://stands-api.onrender.com"
+export const api = "https://stands-api-sand.vercel.app"
