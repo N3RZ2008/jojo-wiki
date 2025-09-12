@@ -1,0 +1,1 @@
+export const api = "https://stands-api.onrender.com"

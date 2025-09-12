@@ -1,4 +1,7 @@
 export default async function Insert(coll, data) {
+
+    return "NOT WORKING YET"
+
     const res = await fetch(`/api/${coll}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
