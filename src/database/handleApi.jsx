@@ -59,8 +59,8 @@ export async function insertOne(coll, data) {
     return res.json()
 }
 
-export async function updateOne(coll, id, data) {
-    const res = await fetch(`${api}/${coll}/${id}`, {
+export async function updateOne(coll, search, data) {
+    const res = await fetch(`${api}/${coll}/${search}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -68,9 +68,34 @@ export async function updateOne(coll, id, data) {
     if (!res.ok) throw new Error("Failed to update")
 }
 
-export async function deleteOne(coll, id) {
-    const res = await fetch(`${api}/${coll}/${id}`, {
+export async function deleteOne(coll, search) {
+    const res = await fetch(`${api}/${coll}/${search}`, {
         method: "DELETE"
     })
     if (!res.ok) throw new Error("Failed to delete")
+}
+
+export function useCheckAdmin(userId) {
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!userId) {
+      setIsAdmin(false)
+      return
+    }
+
+    fetch(`${api}/admins/${userId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not admin")
+        return res.json()
+      })
+      .then(data => {
+        setIsAdmin(true)
+      })
+      .catch(() => {
+        setIsAdmin(false)
+      })
+  }, [userId])
+
+  return { isAdmin }
 }

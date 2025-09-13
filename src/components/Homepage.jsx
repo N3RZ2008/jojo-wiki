@@ -23,22 +23,7 @@ export default function Homepage() {
         }
     }, [loading])
 
-    function showValues() {
-        if (loading) return 
-        return srcList.map((src) => {
-            console.log(src)
-        })
-    }
-    // showValues()
-
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
-
-    // return <div className="page homepage">
-    //     <h1>Homepage</h1>
-    //     <div className="catalog">
-    //         { catalog() }
-    //     </div>
-    // </div>
 
     return <div className="page homepage">
         <h1>Pages</h1>

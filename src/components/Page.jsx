@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import ReactDOM from "react-dom"
 import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { AuthContext } from "./AuthProvider.jsx"
@@ -10,7 +10,7 @@ import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
 import ImageIcon from "./icons/ImageIcon.jsx"
 import SubmitIcon from "./icons/SubmitIcon.jsx"
 import PencilIcon from "./icons/PencilIcon.jsx"
-import { findOne, insertOne } from "../database/handleApi.jsx"
+import { findOne, insertOne, updateOne, deleteOne, useCheckAdmin } from "../database/handleApi.jsx"
 import { api } from "../database/api.js"
 import "./styles/page.css"
 
@@ -41,6 +41,7 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
 
 function Page() {
     const { insertedName } = useParams()
+    const navigate = useNavigate()
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [editMode, setEditMode] = useState(false)
@@ -59,6 +60,7 @@ function Page() {
     ]
     const { find, loading } = findOne("stands", insertedName)
     const { user } = useContext(AuthContext)
+    const { isAdmin } = useCheckAdmin(user?.id)
 
     useEffect(() => {
         if (!loading) {
@@ -89,6 +91,7 @@ function Page() {
 
     function checkPerm() {
         if (addMode) return true
+        if (isAdmin) return true
         if (pageUser === user?.id) return true
         return false
     }
@@ -167,7 +170,7 @@ function Page() {
         return update
     }
 
-    async function tryInsert(pageName) {
+    async function tryInsert() {
         if (pageName === "") return alert("Insert something first")
 
         const res = await fetch(`${api}/stands/${pageName}`)
@@ -183,8 +186,31 @@ function Page() {
             },
             page: page
         }
-        alert("Sucessfully inserted page")
         insertOne("stands", dataInsert)
+        alert("Sucessfully inserted page")
+    }
+
+    function tryEdit() {
+        if (addMode) return
+
+        const dataInsert = {
+            data: {
+                pageName: pageName,
+                imgSrc: imgSrc,
+                date: new Date(),
+                userId: user.id
+            },
+            page: page
+        }
+        updateOne("stands", pageName, dataInsert)
+        alert("Sucessfully updated page")
+    }
+
+    function tryDelete() {
+        const check = confirm("Are you sure?")
+        if (!check) return
+        deleteOne("stands", pageName)
+        navigate("/")
     }
 
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
@@ -208,7 +234,7 @@ function Page() {
                     onChange={(e) => setImgSrc(e.target.value)}
                 />
                 <img className="imagePreview" src={imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"} alt="" />
-                <button onClick={() => tryInsert(pageName, imgSrc)}>Submit Page</button>
+                <button onClick={tryInsert}>Submit Page</button>
             </> :
                 <>
                     <h1>Update Page</h1>
@@ -225,7 +251,7 @@ function Page() {
                         onChange={(e) => setImgSrc(e.target.value)}
                     />
                     <img className="imagePreview" src={imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"} alt="" />
-                    <button >Submit Changes</button>
+                    <button onClick={tryEdit}>Submit Changes</button>
                 </>
             }
         </Modal>
@@ -243,8 +269,8 @@ function Page() {
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon /></button>
                     {addMode ?
                         <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button> :
-                        <button className="editMenuButton" onClick={() => setIsOpen(true)}>edit</button>}
-                    <button onClick={() => console.log(page)}>D</button>
+                        <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>}
+                    <button className="editMenuButton" onClick={tryDelete}><ImageIcon /></button>
                 </div>,
                 document.getElementById("edit-menu-root")
             )}
