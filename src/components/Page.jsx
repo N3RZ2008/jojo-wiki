@@ -8,8 +8,8 @@ import ParagraphIcon from "./icons/ParagraphIcon.jsx"
 import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
 import ImageIcon from "./icons/ImageIcon.jsx"
 import SubmitIcon from "./icons/SubmitIcon.jsx"
-import findOne from "../database/findOne.jsx"
-import Insert from "../database/insert.jsx"
+import PencilIcon from "./icons/PencilIcon.jsx"
+import { findOne, insertOne } from "../database/handleApi.jsx"
 import "./styles/page.css"
 import { useParams } from "react-router-dom"
 
@@ -56,7 +56,6 @@ function Page() {
     ]
     const { find, loading } = findOne("stands", insertedName)
     const { user } = useContext(AuthContext)
-    console.log(user)
 
     useEffect(() => {
         if (!loading) {
@@ -72,6 +71,13 @@ function Page() {
             }
         }
     }, [loading])
+
+    function switchMode() {
+        if (editMode) {
+            return setEditMode(false)
+        }
+        return setEditMode(true)
+    }
 
     function addComp(type) {
         if (type.toString() === "twoParagraph") {
@@ -187,6 +193,11 @@ function Page() {
             />
             <button onClick={() => tryInsert(pageName, imgSrc)}>Submit</button>
         </Modal>
+        {true &&
+            ReactDOM.createPortal(
+                <button className="editMenuButton switchMode" onClick={switchMode}><PencilIcon /></button>,
+                document.getElementById("switch-edit-root")
+            )}
         {editMode &&
             ReactDOM.createPortal(
                 <div className="editMenu">

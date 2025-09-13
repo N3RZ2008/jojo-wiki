@@ -47,3 +47,8 @@
 .editMenuButton:hover svg {
     fill: #DDDDDD;
 }
+
+.switchMode {
+    position: fixed;
+    z-index: 999;
+}

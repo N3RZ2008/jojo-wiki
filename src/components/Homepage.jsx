@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import findAll from "../database/findAll"
+import { findAll } from "../database/handleApi"
 import CardGrid from "./CardGrid"
 import "./styles/page.css"
 import "./styles/homepage.css"
