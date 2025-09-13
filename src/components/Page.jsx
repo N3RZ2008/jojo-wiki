@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import ReactDOM from "react-dom"
 import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { AuthContext } from "./AuthProvider.jsx"
@@ -10,8 +11,8 @@ import ImageIcon from "./icons/ImageIcon.jsx"
 import SubmitIcon from "./icons/SubmitIcon.jsx"
 import PencilIcon from "./icons/PencilIcon.jsx"
 import { findOne, insertOne } from "../database/handleApi.jsx"
+import { api } from "../database/api.js"
 import "./styles/page.css"
-import { useParams } from "react-router-dom"
 
 const componentMap = {
     heading: Heading,
@@ -43,7 +44,9 @@ function Page() {
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [editMode, setEditMode] = useState(false)
+    const [addMode, setAddMode] = useState(false)
     const [pageName, setPageName] = useState("")
+    const [pageUser, setPageUser] = useState("")
     const [imgSrc, setImgSrc] = useState("")
     const errorPage = [
         {
@@ -61,22 +64,33 @@ function Page() {
         if (!loading) {
             if (find !== null) {
                 setPage(find.page)
+                setPageName(find.data.pageName)
+                setImgSrc(find.data.imgSrc)
+                setPageUser(find.data.userId)
             }
             else {
                 if (insertedName === undefined) {
+                    setAddMode(true)
                     setPage([])
                 } else {
                     setPage(errorPage)
                 }
             }
         }
-    }, [loading])
+    }, [find, loading])
 
     function switchMode() {
+        if (user === null) return alert("Login first")
         if (editMode) {
             return setEditMode(false)
         }
         return setEditMode(true)
+    }
+
+    function checkPerm() {
+        if (addMode) return true
+        if (pageUser === user?.id) return true
+        return false
     }
 
     function addComp(type) {
@@ -156,20 +170,21 @@ function Page() {
     async function tryInsert(pageName) {
         if (pageName === "") return alert("Insert something first")
 
-        const res = await fetch(`/api/stands/${pageName}`)
+        const res = await fetch(`${api}/stands/${pageName}`)
         const data = await res.json()
         if (!data.error) return alert("This name is not avaliable")
-
+        
         const dataInsert = {
             data: {
                 pageName: pageName,
                 imgSrc: imgSrc,
-                date: new Date()
+                date: new Date(),
+                userId: user.id
             },
             page: page
         }
         alert("Sucessfully inserted page")
-        Insert("stands", dataInsert)
+        insertOne("stands", dataInsert)
     }
 
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
@@ -177,23 +192,44 @@ function Page() {
     return <div className="page">
         <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-            <h1>Submit Page</h1>
-            <input
-                type="text"
-                value={pageName}
-                placeholder="Insert page name"
-                onChange={(e) => setPageName(e.target.value)}
-            />
-            <input
-                className="imageInput"
-                type="text"
-                value={imgSrc}
-                placeholder="Insert URL"
-                onChange={(e) => setImgSrc(e.target.value)}
-            />
-            <button onClick={() => tryInsert(pageName, imgSrc)}>Submit</button>
+            {addMode ? <>
+                <h1>Add Page</h1>
+                <input
+                    type="text"
+                    value={pageName}
+                    placeholder="Insert page name"
+                    onChange={(e) => setPageName(e.target.value)}
+                />
+                <input
+                    className="imageInput"
+                    type="text"
+                    value={imgSrc}
+                    placeholder="Insert URL"
+                    onChange={(e) => setImgSrc(e.target.value)}
+                />
+                <img className="imagePreview" src={imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"} alt="" />
+                <button onClick={() => tryInsert(pageName, imgSrc)}>Submit Page</button>
+            </> :
+                <>
+                    <h1>Update Page</h1>
+                    <input
+                        type="text"
+                        value={pageName}
+                        disabled={true}
+                    />
+                    <input
+                        className="imageInput"
+                        type="text"
+                        value={imgSrc}
+                        placeholder="Insert URL"
+                        onChange={(e) => setImgSrc(e.target.value)}
+                    />
+                    <img className="imagePreview" src={imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"} alt="" />
+                    <button >Submit Changes</button>
+                </>
+            }
         </Modal>
-        {true &&
+        {checkPerm() &&
             ReactDOM.createPortal(
                 <button className="editMenuButton switchMode" onClick={switchMode}><PencilIcon /></button>,
                 document.getElementById("switch-edit-root")
@@ -205,7 +241,9 @@ function Page() {
                     <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon /></button>
                     <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon /></button>
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon /></button>
-                    <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>
+                    {addMode ?
+                        <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button> :
+                        <button className="editMenuButton" onClick={() => setIsOpen(true)}>edit</button>}
                     <button onClick={() => console.log(page)}>D</button>
                 </div>,
                 document.getElementById("edit-menu-root")
