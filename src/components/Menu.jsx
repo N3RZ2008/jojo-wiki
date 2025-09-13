@@ -1,21 +1,12 @@
 import { useContext } from "react";
-import "./styles/menu.css";
-import { PageContext } from "./PageProvider";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./AuthProvider.jsx"
+import "./styles/menu.css";
 
 function Menu() {
-    const { editMode, setEditMode } = useContext(PageContext)
+    const { user } = useContext(AuthContext)
     const menuStyle = {
         width: "20vw"
-    }
-
-    function switchMode() {
-        if (editMode) {
-            setEditMode(false)
-            return
-        }
-        setEditMode(true)
-        return
     }
 
     return (
@@ -28,7 +19,13 @@ function Menu() {
             </Link>
             <div className="menuItem" style={menuStyle}>Item 3</div>
             <div className="menuItem" style={menuStyle}>Item 4</div>
-            <div onClick={switchMode} className="menuItem" style={menuStyle}>Switch Mode</div>
+            {user == undefined ?
+                <Link to={"/login"}>
+                    <div className="menuItem" style={menuStyle}>Login</div>
+                </Link> :
+                <Link to={"/logout"}>
+                    <div className="menuItem" style={menuStyle}>Logout</div>
+                </Link>}
         </div>
     )
 }

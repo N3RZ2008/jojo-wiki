@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
-import { PageContext } from "./PageProvider.jsx"
+import { AuthContext } from "./AuthProvider.jsx"
 import Modal from "./Modal.jsx"
 import HeadingIcon from "./icons/HeadingIcon.jsx"
 import ParagraphIcon from "./icons/ParagraphIcon.jsx"
@@ -42,6 +42,7 @@ function Page() {
     const { insertedName } = useParams()
     const [page, setPage] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [editMode, setEditMode] = useState(false)
     const [pageName, setPageName] = useState("")
     const [imgSrc, setImgSrc] = useState("")
     const errorPage = [
@@ -54,7 +55,8 @@ function Page() {
         }
     ]
     const { find, loading } = findOne("stands", insertedName)
-    const { editMode } = useContext(PageContext)
+    const { user } = useContext(AuthContext)
+    console.log(user)
 
     useEffect(() => {
         if (!loading) {

@@ -1,0 +1,12 @@
+.formA {
+    height: auto;
+    text-decoration: underline;
+}
+
+a:link {
+    color: #4141fa;
+}
+
+a:visited {
+    color: #8745c5;
+}
