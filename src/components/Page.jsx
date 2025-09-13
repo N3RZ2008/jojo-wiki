@@ -10,6 +10,7 @@ import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
 import ImageIcon from "./icons/ImageIcon.jsx"
 import SubmitIcon from "./icons/SubmitIcon.jsx"
 import PencilIcon from "./icons/PencilIcon.jsx"
+import DeleteIcon from "./icons/DeleteIcon.jsx"
 import { findOne, insertOne, updateOne, deleteOne, useCheckAdmin } from "../database/handleApi.jsx"
 import { api } from "../database/api.js"
 import "./styles/page.css"
@@ -267,10 +268,11 @@ function Page() {
                     <button className="editMenuButton" onClick={() => addComp("paragraph")}><ParagraphIcon /></button>
                     <button className="editMenuButton" onClick={() => addComp("twoParagraph")}><TwoParagraphIcon /></button>
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon /></button>
-                    {addMode ?
-                        <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button> :
-                        <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>}
-                    <button className="editMenuButton" onClick={tryDelete}><ImageIcon /></button>
+                    <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>
+                    {!addMode &&
+                    <button className="editMenuButton" onClick={tryDelete}><DeleteIcon /></button>
+                    }
+                    
                 </div>,
                 document.getElementById("edit-menu-root")
             )}
