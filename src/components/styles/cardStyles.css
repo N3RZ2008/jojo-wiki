@@ -1,23 +1,32 @@
 .cardGrid {
     display: grid;
     width: 70%;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: 25% 25% 25% 25%;
+    /* grid-auto-columns: auto; */
     justify-items: center;
     column-gap: 10px;
     row-gap: 10px;
 }
 
+.cardGrid a {
+    width: 100%;
+    text-decoration: none;
+}
+
 .card {
     padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    gap: max(5px, 1vh);
     background-color: #ac824c;
     border: solid 1px;
     border-radius: 20px;
-    word-break: break-all;
+}
+
+.card h1 {
+    padding: 0 10px;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card img {
@@ -25,4 +34,22 @@
     height: 20vh;
     object-fit: cover;
     border-radius: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .cardGrid {
+        grid-template-columns: 33% 33% 33%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .cardGrid {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cardGrid {
+        grid-template-columns: 100%;
+    }
 }

@@ -10,10 +10,11 @@ export default function SignUp() {
     const navigate = useNavigate()
 
     async function handleSubmit(e) {
+        return alert("Sign up temporarily disabled")
         e.preventDefault()
         try {
             await signUp(email, password)
-            navigate("/login")
+            navigate("/homepage")
             alert("User successfully registered")
         } catch (error) {
             alert(error.message)
