@@ -25,12 +25,12 @@ export function findAll(coll) {
     return { find, loading }
 }
 
-export function findOne(coll, name) {
+export function findOne(coll, search) {
     const [find, setFind] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch(`${api}/${coll}/${name}`)
+        fetch(`${api}/${coll}/${search}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Not found");
                 return res.json();
@@ -44,7 +44,7 @@ export function findOne(coll, name) {
                 setFind(null);
                 setLoading(false);
             })
-    }, [coll, name])
+    }, [coll, search])
 
     return { find, loading }
 }
@@ -84,13 +84,13 @@ export function useCheckAdmin(userId) {
       return
     }
 
-    fetch(`${api}/admins/${userId}`)
+    fetch(`${api}/users/${userId}`)
       .then(res => {
-        if (!res.ok) throw new Error("Not admin")
+        if (!res.ok) throw new Error("User not found")
         return res.json()
       })
       .then(data => {
-        setIsAdmin(true)
+        setIsAdmin(data.isAdmin)
       })
       .catch(() => {
         setIsAdmin(false)

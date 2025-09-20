@@ -18,9 +18,14 @@ function Menu() {
                 <Link className="menuA" to={"/login"}>
                     <div className="menuItem">Login</div>
                 </Link> :
-                <Link className="menuA" to={"/logout"}>
-                    <div className="menuItem">Logout</div>
-                </Link>}
+                <>
+                    <Link className="menuA" to={"/logout"}>
+                        <div className="menuItem">Logout</div>
+                    </Link>
+                    <Link className="menuA" to={`/profile/${user?.id}`}>
+                        <div className="menuItem">Profile</div>
+                    </Link> 
+                </>}
         </div>
     )
 }

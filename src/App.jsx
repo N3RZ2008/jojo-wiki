@@ -7,6 +7,7 @@ import Homepage from "./components/Homepage.jsx"
 import SignUp from "./components/SignUp.jsx"
 import Login from "./components/LogIn.jsx"
 import test from "./layoutTest.json"
+import Profile from "./components/Profile.jsx"
 
 function Layout() {
 	return <Background>
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
 			{ path: "/signup", element: <SignUp /> },
 			{ path: "/login", element: <Login /> },
 			{ path: "/logout", element: <Login logout={true} /> },
+			{ path: "/profile/:userId", element: <Profile /> },
 			{ path: "*", element: <Page insertedName="404" /> }
 		]
 	}
