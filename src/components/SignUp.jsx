@@ -26,7 +26,7 @@ export default function SignUp() {
         try {
             const data = await signUp(email, password)
             tryInsert(data.user.id, data.user.email)
-            // navigate("/homepage")
+            navigate("/homepage")
             alert("User successfully registered")
         } catch (error) {
             alert(error.message)
