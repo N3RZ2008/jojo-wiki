@@ -7,16 +7,26 @@
     align-items: center;
 }
 
-.menuItem {
-    display: flex;
-    height: 100%;
-    justify-content: space-around;
-    align-items: center;
-    user-select: none;
+.menu a:hover {
+    color: #dddddd;
 }
 
-.menuItem:hover {
+.menu .dropdown-menu {
+    background-color: #ac824c;
+}
+
+.menu .dropdown-item {
+    color: white;
+}
+
+.menu .dropdown-item:hover {
+    color: white;
     background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+.menuItem {
+    color: white;
+    text-decoration: none;
 }
 
 .menuA {

@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp.jsx"
 import Login from "./components/LogIn.jsx"
 import test from "./layoutTest.json"
 import Profile from "./components/Profile.jsx"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Layout() {
 	return <Background>

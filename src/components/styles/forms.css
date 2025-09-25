@@ -5,10 +5,10 @@ form {
     gap: 10px;
 }
 
-a:link {
+.page a:link {
     color: #4141fa;
 }
 
-a:visited {
+.page a:visited {
     color: #8745c5;
 }

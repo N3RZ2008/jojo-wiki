@@ -4,12 +4,12 @@ import "./styles/page.css"
 import { useParams } from "react-router-dom"
 
 export default function Profile() {
-    const [ user, setUser ] = useState(null)
+    const [user, setUser] = useState(null)
     const { userId } = useParams()
     const { find, loading } = findOne("users", userId)
 
     useEffect(() => {
-        if(!loading) {
+        if (!loading) {
             setUser(find)
         }
     }, [find, loading])
@@ -20,6 +20,6 @@ export default function Profile() {
     return <div className="page profile">
         <h1>Logged with {user?.email}</h1>
         <img src={user?.profilePicture} alt="" />
-        <button onClick={() => {console.log(user)}}>debug</button>
+        <button onClick={() => { console.log(user) }}>debug</button>
     </div>
 }

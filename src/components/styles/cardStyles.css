@@ -13,7 +13,7 @@
     text-decoration: none;
 }
 
-.card {
+.cardItem {
     padding: 20px 0;
     text-align: center;
     background-color: #ac824c;
@@ -21,7 +21,7 @@
     border-radius: 20px;
 }
 
-.card h1 {
+.cardItem h1 {
     padding: 0 10px;
     min-width: 0;
     white-space: nowrap;
@@ -29,7 +29,7 @@
     text-overflow: ellipsis;
 }
 
-.card img {
+.cardItem img {
     width: 80%;
     height: 20vh;
     object-fit: cover;

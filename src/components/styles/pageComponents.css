@@ -32,10 +32,14 @@
     flex-direction: column;
 }
 
+.headingInput .paragraphInput {
+    font-weight: 500;
+    line-height: 1.2;
+}
+
 .headingInput {
     color: white;
     font-size: 32px;
-    font-weight: bold;
     text-align: center;
     background-color: hsla(0, 0%, 0%, 0);
     border: none;
