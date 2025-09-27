@@ -5,7 +5,7 @@ function Modal({ children, open, onClose }) {
     if (!open) return null
     return ReactDOM.createPortal(
         <div className="modalBackground">
-            <div className="modal">
+            <div className="modalDiv">
                 <button onClick={onClose}>Close Modal</button>
                 <div>{children}</div>
             </div>

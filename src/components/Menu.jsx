@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { AuthContext } from "./AuthProvider.jsx"
+import { AuthContext } from "./authComponents/AuthProvider.jsx"
 import { useCheckAdmin } from "../database/handleApi.jsx";
 import "./styles/menu.css";
 
@@ -24,37 +24,37 @@ function Menu() {
                 <NavDropdown
                     title="Admin"
                 >
-                    <NavDropdown.Item>
+                    <NavDropdown.ItemText>
                         <Link className="menuItem" to={"#"}>Users</Link>
-                    </NavDropdown.Item>
+                    </NavDropdown.ItemText>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item>
-                        <Link className="menuItem" to={"#"}>Pages</Link>
-                    </NavDropdown.Item>
+                    <NavDropdown.ItemText>
+                        <Link className="menuItem" to={"/admin/pages"}>Pages</Link>
+                    </NavDropdown.ItemText>
                     </NavDropdown>}
 
             {user == undefined ?
                 <NavDropdown
                     title="Login"
                 >
-                    <NavDropdown.Item>
+                    <NavDropdown.ItemText>
                         <Link className="menuItem" to={`/login`}>Login</Link>
-                    </NavDropdown.Item>
+                    </NavDropdown.ItemText>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item>
+                    <NavDropdown.ItemText>
                         <Link className="menuItem" to={"/signup"}>Sign Up</Link>
-                    </NavDropdown.Item>
+                    </NavDropdown.ItemText>
                 </NavDropdown> :
                 <NavDropdown
                     title="Profile"
                 >
-                    <NavDropdown.Item>
+                    <NavDropdown.ItemText>
                         <Link className="menuItem" to={`/profile/${user?.id}`}>Profile</Link>
-                    </NavDropdown.Item>
+                    </NavDropdown.ItemText>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item>
+                    <NavDropdown.ItemText>
                         <Link className="menuItem" to={"/logout"}>Logout</Link>
-                    </NavDropdown.Item>
+                    </NavDropdown.ItemText>
                 </NavDropdown>}
 
 

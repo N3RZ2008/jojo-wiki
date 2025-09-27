@@ -1,19 +1,38 @@
 import { useEffect, useState } from "react"
 import { findAll } from "../database/handleApi"
-import CardGrid from "./CardGrid"
+
+import CardGrid from "./listComponents/CardGrid"
+
 import "./styles/page.css"
 import "./styles/homepage.css"
 
 export default function Homepage() {
     const [nameList, setNameList] = useState([])
     const [srcList, setSrcList] = useState([])
+    const [cardQuantity, setCardQuantity] = useState(0)
+    const [onlyVerified, setOnlyVerified] = useState(true)
     const { find, loading } = findAll("stands")
 
     useEffect(() => {
         if (!loading) {
             if (find !== null) {
-                const names = find.map((page) => page.data.pageName)
-                const srcs = find.map((page) => page.data.imgSrc)
+                let ok = 0
+                const names = find.map((page) => {
+                    if (page.data.status === "request") {
+                        if (!(onlyVerified && !page.data.verified)) {
+                            ok += 1
+                            return page.data.pageName
+                        }
+                    }
+                })
+                const srcs = find.map((page) => {
+                    if (page.data.status === "request") {
+                        if (!(onlyVerified && !page.data.verified)) {
+                            return page.data.imgSrc
+                        }
+                    }
+                })
+                setCardQuantity(ok)
                 setNameList(names)
                 setSrcList(srcs)
             }
@@ -21,12 +40,23 @@ export default function Homepage() {
                 console.log("404")
             }
         }
-    }, [loading])
+    }, [loading, onlyVerified])
+
 
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page homepage">
         <h1>Pages</h1>
-        <CardGrid quantity={nameList.length} names={nameList} srcs={srcList}/>
+        <button
+            onClick={() => {
+                if(onlyVerified) {
+                    setOnlyVerified(false)
+                    return
+                }
+                setOnlyVerified(true)
+                return
+            }}
+        >onlyVerified = {onlyVerified ? "True" : "False"}</button>
+        <CardGrid quantity={cardQuantity} names={nameList} srcs={srcList}/>
     </div>
 }

@@ -1,0 +1,75 @@
+.barGrid {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    justify-items: center;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.barGrid a {
+    width: 100%;
+    text-decoration: none;
+}
+
+.barItem {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    text-align: center;
+    background-color: #ac824c;
+    border: solid 1px;
+    border-radius: 20px;
+}
+
+.barItem h1 {
+    padding: 0 10px;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.barItem img {
+    width: 10%;
+    /* height: 20vh; */
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.pageData {
+    width: 60%;
+    display: flex;
+}
+
+.status {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status h1 {
+    width: fit-content;
+}
+
+.actions {
+    width: 15%;
+    display: flex;
+    /* height: 100px; */
+}
+
+.actionButton {
+    aspect-ratio: 1 / 1;
+    max-width: 70px;
+    max-height: 70px;
+    border: solid 1px white;
+    border-radius: 100px;
+    background-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.actionButton svg {
+    fill: #FFFFFF;
+    height: 100%;
+    width: 100%;
+}

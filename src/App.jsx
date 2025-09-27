@@ -1,13 +1,16 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import Background from "./components/Background.jsx"
-import AuthProvider from "./components/AuthProvider.jsx"
 import Page from "./components/Page.jsx"
 import Menu from "./components/Menu.jsx"
 import Homepage from "./components/Homepage.jsx"
-import SignUp from "./components/SignUp.jsx"
-import Login from "./components/LogIn.jsx"
-import test from "./layoutTest.json"
-import Profile from "./components/Profile.jsx"
+
+import AuthProvider from "./components/authComponents/AuthProvider.jsx"
+import SignUp from "./components/authComponents/SignUp.jsx"
+import Login from "./components/authComponents/LogIn.jsx"
+import Profile from "./components/authComponents/Profile.jsx"
+
+import AdminPageView from "./components/adminComponents/AdminPageView.jsx"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Layout() {
@@ -29,6 +32,7 @@ const router = createBrowserRouter([
 			{ path: "/login", element: <Login /> },
 			{ path: "/logout", element: <Login logout={true} /> },
 			{ path: "/profile/:userId", element: <Profile /> },
+			{ path: "/admin/pages", element: <AdminPageView />},
 			{ path: "*", element: <Page insertedName="404" /> }
 		]
 	}

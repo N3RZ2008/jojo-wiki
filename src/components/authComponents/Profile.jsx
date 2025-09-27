@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { findOne } from "../database/handleApi"
-import "./styles/page.css"
+import { findOne } from "../../database/handleApi"
+import "../styles/page.css"
 import { useParams } from "react-router-dom"
 
 export default function Profile() {

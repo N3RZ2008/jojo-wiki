@@ -1,18 +1,24 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import ReactDOM from "react-dom"
+
 import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
-import { AuthContext } from "./AuthProvider.jsx"
+import { AuthContext } from "./authComponents/AuthProvider.jsx"
 import Modal from "./Modal.jsx"
-import HeadingIcon from "./icons/HeadingIcon.jsx"
-import ParagraphIcon from "./icons/ParagraphIcon.jsx"
-import TwoParagraphIcon from "./icons/TwoParagraphIcon.jsx"
-import ImageIcon from "./icons/ImageIcon.jsx"
-import SubmitIcon from "./icons/SubmitIcon.jsx"
-import PencilIcon from "./icons/PencilIcon.jsx"
-import DeleteIcon from "./icons/DeleteIcon.jsx"
+
+import {
+    DeleteIcon,
+    HeadingIcon,
+    ImageIcon,
+    ParagraphIcon,
+    PencilIcon,
+    SubmitIcon,
+    TwoParagraphIcon
+} from "./icons.jsx"
+
 import { findOne, insertOne, updateOne, deleteOne, useCheckAdmin } from "../database/handleApi.jsx"
 import { api } from "../database/api.js"
+
 import "./styles/page.css"
 
 const componentMap = {
@@ -177,7 +183,7 @@ function Page() {
         const res = await fetch(`${api}/stands/${pageName}`)
         const data = await res.json()
         if (!data.error) return alert("This name is not avaliable")
-        
+
         const dataInsert = {
             data: {
                 pageName: pageName,
@@ -270,9 +276,9 @@ function Page() {
                     <button className="editMenuButton" onClick={() => addComp("image")}><ImageIcon /></button>
                     <button className="editMenuButton" onClick={() => setIsOpen(true)}><SubmitIcon /></button>
                     {!addMode &&
-                    <button className="editMenuButton" onClick={tryDelete}><DeleteIcon /></button>
+                        <button className="editMenuButton" onClick={tryDelete}><DeleteIcon /></button>
                     }
-                    
+
                 </div>,
                 document.getElementById("edit-menu-root")
             )}
