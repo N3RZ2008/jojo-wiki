@@ -9,32 +9,30 @@ import "./styles/homepage.css"
 export default function Homepage() {
     const [nameList, setNameList] = useState([])
     const [srcList, setSrcList] = useState([])
-    const [cardQuantity, setCardQuantity] = useState(0)
     const [onlyVerified, setOnlyVerified] = useState(true)
     const { find, loading } = findAll("stands")
 
     useEffect(() => {
         if (!loading) {
             if (find !== null) {
-                let ok = 0
                 const names = find.map((page) => {
-                    if (page.data.status === "request") {
+                    if (page.data.status === "accepted") {
                         if (!(onlyVerified && !page.data.verified)) {
-                            ok += 1
                             return page.data.pageName
                         }
+                        return undefined
                     }
                 })
                 const srcs = find.map((page) => {
-                    if (page.data.status === "request") {
+                    if (page.data.status === "accepted") {
                         if (!(onlyVerified && !page.data.verified)) {
                             return page.data.imgSrc
                         }
+                        return undefined
                     }
                 })
-                setCardQuantity(ok)
-                setNameList(names)
-                setSrcList(srcs)
+                setNameList(names.filter((name) => { return name }))
+                setSrcList(srcs.filter((src) => { return src }))
             }
             else {
                 console.log("404")
@@ -42,14 +40,13 @@ export default function Homepage() {
         }
     }, [loading, onlyVerified])
 
-
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page homepage">
         <h1>Pages</h1>
         <button
             onClick={() => {
-                if(onlyVerified) {
+                if (onlyVerified) {
                     setOnlyVerified(false)
                     return
                 }
@@ -57,6 +54,6 @@ export default function Homepage() {
                 return
             }}
         >onlyVerified = {onlyVerified ? "True" : "False"}</button>
-        <CardGrid quantity={cardQuantity} names={nameList} srcs={srcList}/>
+        <CardGrid quantity={nameList.length} names={nameList} srcs={srcList} />
     </div>
 }

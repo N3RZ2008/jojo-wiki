@@ -189,7 +189,9 @@ function Page() {
                 pageName: pageName,
                 imgSrc: imgSrc,
                 date: new Date(),
-                userId: user.id
+                userId: user.id,
+                status: "request",
+                verified: false
             },
             page: page
         }
@@ -197,17 +199,13 @@ function Page() {
         alert("Sucessfully inserted page")
     }
 
-    function tryEdit() {
+    function tryUpdate() {
         if (addMode) return
 
         const dataInsert = {
-            data: {
-                pageName: pageName,
-                imgSrc: imgSrc,
-                date: new Date(),
-                userId: user.id
-            },
-            page: page
+            page: page,
+            "data.status": "request",
+            "data.verified": false
         }
         updateOne("stands", pageName, dataInsert)
         alert("Sucessfully updated page")
@@ -258,7 +256,7 @@ function Page() {
                         onChange={(e) => setImgSrc(e.target.value)}
                     />
                     <img className="imagePreview" src={imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"} alt="" />
-                    <button onClick={tryEdit}>Submit Changes</button>
+                    <button onClick={tryUpdate}>Submit Changes</button>
                 </>
             }
         </Modal>

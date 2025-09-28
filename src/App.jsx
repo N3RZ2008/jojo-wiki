@@ -12,6 +12,7 @@ import Profile from "./components/authComponents/Profile.jsx"
 import AdminPageView from "./components/adminComponents/AdminPageView.jsx"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ModalProvider from "./components/ModalProvider.jsx"
 
 function Layout() {
 	return <Background>
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
 			{ path: "/login", element: <Login /> },
 			{ path: "/logout", element: <Login logout={true} /> },
 			{ path: "/profile/:userId", element: <Profile /> },
-			{ path: "/admin/pages", element: <AdminPageView />},
+			{ path: "/admin/pages", element: <ModalProvider><AdminPageView /></ModalProvider>},
 			{ path: "*", element: <Page insertedName="404" /> }
 		]
 	}

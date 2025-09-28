@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { api } from "./api"
 
-export function findAll(coll) {
+export function findAll(coll, refresh) {
     const [find, setFind] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        setLoading(true)
         fetch(`${api}/${coll}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Not found");
@@ -20,7 +22,7 @@ export function findAll(coll) {
                 setFind(null);
                 setLoading(false);
             })
-    }, [coll])
+    }, [coll, refresh])
 
     return { find, loading }
 }
@@ -76,26 +78,26 @@ export async function deleteOne(coll, search) {
 }
 
 export function useCheckAdmin(userId) {
-  const [isAdmin, setIsAdmin] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
 
-  useEffect(() => {
-    if (!userId) {
-      setIsAdmin(false)
-      return
-    }
+    useEffect(() => {
+        if (!userId) {
+            setIsAdmin(false)
+            return
+        }
 
-    fetch(`${api}/users/${userId}`)
-      .then(res => {
-        if (!res.ok) throw new Error("User not found")
-        return res.json()
-      })
-      .then(data => {
-        setIsAdmin(data.isAdmin)
-      })
-      .catch(() => {
-        setIsAdmin(false)
-      })
-  }, [userId])
+        fetch(`${api}/users/${userId}`)
+            .then(res => {
+                if (!res.ok) throw new Error("User not found")
+                return res.json()
+            })
+            .then(data => {
+                setIsAdmin(data.isAdmin)
+            })
+            .catch(() => {
+                setIsAdmin(false)
+            })
+    }, [userId])
 
-  return { isAdmin }
+    return { isAdmin }
 }
