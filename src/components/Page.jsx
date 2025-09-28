@@ -28,10 +28,10 @@ const componentMap = {
     image: Image
 }
 
-function DynamicRenderer({ layout, editMode, updater, deleter }) {
+function DynamicRenderer({ layout, editMode, updater, deleter, mover}) {
     return (
         layout.map(
-            (item) => {
+            (item, index) => {
                 const Component = componentMap[item.type];
                 return <Component
                     key={item.id}
@@ -40,6 +40,8 @@ function DynamicRenderer({ layout, editMode, updater, deleter }) {
                     editMode={editMode}
                     updater={updater}
                     deleter={deleter}
+                    mover={mover}
+                    pos={index}
                 />
             }
         )
@@ -87,6 +89,10 @@ function Page() {
             }
         }
     }, [find, loading])
+
+    useEffect(() => {
+        console.log()
+    }, [page])
 
     function switchMode() {
         if (user === null) return alert("Login first")
@@ -177,6 +183,17 @@ function Page() {
         return update
     }
 
+    function moveComp(p) {
+        if (p<0 || p>=page.length-1) return
+        setPage(
+            page.map((comp, index) => {
+                if (index == p) return page[p+1]
+                if (index == p+1) return page[p]
+                return comp
+            })
+        )
+    }
+
     async function tryInsert() {
         if (pageName === "") return alert("Insert something first")
 
@@ -221,7 +238,7 @@ function Page() {
     if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page">
-        <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} />
+        <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} mover={moveComp} />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
             {addMode ? <>
                 <h1>Add Page</h1>

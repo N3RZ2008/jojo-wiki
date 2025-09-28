@@ -1,13 +1,13 @@
-.container {
+.containerItem {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
-.container :nth-child(n) {
+.containerItem :nth-child(n) {
     flex: 1 1 0;
 }
 @media screen and (max-width: 900px) {
-    .container {
+    .containerItem {
         flex-direction: column;
         min-height: 10vh;
     }
@@ -69,4 +69,10 @@
 
 .twoParagraphP {
     height: 10vh;
+}
+
+.editActions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
