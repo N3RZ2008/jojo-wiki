@@ -37,7 +37,7 @@ export function Heading({ id, children, editMode, updater, deleter, mover, pos }
     return <h1>{value}</h1>
 }
 
-export function Paragraph({ id, children, editMode, updater, deleter, mover }) {
+export function Paragraph({ id, children, editMode, updater, deleter, mover, pos }) {
     const [value, setValue] = useState(children)
 
     useEffect(() => {
@@ -53,9 +53,17 @@ export function Paragraph({ id, children, editMode, updater, deleter, mover }) {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-                <button onClick={() => {
-                    deleter(id)
-                }}>Delete</button>
+                <div className="editActions">
+                    <button className="editMenuButton" onClick={() => {
+                        deleter(id)
+                    }}><DeleteIcon /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos - 1)
+                    }}><ArrowUp /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos)
+                    }}><ArrowDown /></button>
+                </div>
             </div>
         )
     }
@@ -64,7 +72,7 @@ export function Paragraph({ id, children, editMode, updater, deleter, mover }) {
     return <p>{value}</p>
 }
 
-export function Image({ id, src, height, editMode, updater, deleter, mover }) {
+export function Image({ id, src, height, editMode, updater, deleter, mover, pos }) {
     const [srcValue, setSrcValue] = useState(src)
     const [heightValue, setHeightValue] = useState(parseInt(height))
     const imageStyle = {
@@ -97,9 +105,17 @@ export function Image({ id, src, height, editMode, updater, deleter, mover }) {
                         onChange={(e) => setHeightValue(e.target.value)}
                     />
                 </div>
-                <button onClick={() => {
-                    deleter(id)
-                }}>Delete</button>
+                <div className="editActions">
+                    <button className="editMenuButton" onClick={() => {
+                        deleter(id)
+                    }}><DeleteIcon /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos - 1)
+                    }}><ArrowUp /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos)
+                    }}><ArrowDown /></button>
+                </div>
             </div>
         )
     }
@@ -109,7 +125,7 @@ export function Image({ id, src, height, editMode, updater, deleter, mover }) {
     )
 }
 
-export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, deleter, mover }) {
+export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, deleter, mover, pos }) {
     const [valueA, setValueA] = useState(childrenA)
     const [valueB, setValueB] = useState(childrenB)
 
@@ -138,9 +154,17 @@ export function TwoParagraph({ id, childrenA, childrenB, editMode, updater, dele
                         />
                     </div>
                 </div>
-                <button onClick={() => {
-                    deleter(id)
-                }}>Delete</button>
+                <div className="editActions">
+                    <button className="editMenuButton" onClick={() => {
+                        deleter(id)
+                    }}><DeleteIcon /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos - 1)
+                    }}><ArrowUp /></button>
+                    <button className="editMenuButton" onClick={() => {
+                        mover(pos)
+                    }}><ArrowDown /></button>
+                </div>
             </>
         )
     }
