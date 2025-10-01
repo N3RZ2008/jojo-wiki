@@ -80,7 +80,9 @@ export default function Profile() {
         <h1>Profile</h1>
         <div className="profile">
             <div className="info">
-                <img src={userSelected?.profilePicture} alt="" />
+                <div className="infoImg">
+                    <img src={userSelected?.profilePicture} alt="" />
+                </div>
                 <div className="infoText">
                     <p>Username: {userSelected?.userName}</p>
                     <p>Email: {userSelected?.email}</p>
