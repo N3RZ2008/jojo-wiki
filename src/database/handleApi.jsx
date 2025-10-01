@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { api } from "./api"
 
-export function findAll(coll, refresh) {
-    const [find, setFind] = useState(null)
-    const [loading, setLoading] = useState(true)
+export function findAll(coll, refresh = 0) {
+    const [findAllResults, setFind] = useState(null)
+    const [loadingAll, setLoading] = useState(true)
 
     useEffect(() => {
         setLoading(true)
@@ -24,7 +23,7 @@ export function findAll(coll, refresh) {
             })
     }, [coll, refresh])
 
-    return { find, loading }
+    return { findAllResults, loadingAll }
 }
 
 export function findOne(coll, search) {

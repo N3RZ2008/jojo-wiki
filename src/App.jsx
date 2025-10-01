@@ -10,9 +10,11 @@ import Login from "./components/authComponents/LogIn.jsx"
 import Profile from "./components/authComponents/Profile.jsx"
 
 import AdminPageView from "./components/adminComponents/AdminPageView.jsx"
+import AdminUserView from "./components/adminComponents/AdminUserView.jsx" 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ModalProvider from "./components/ModalProvider.jsx"
+import PageModalProvider from "./components/PageModalProvider.jsx"
+import UserModalProvider from "./components/UserModalProvider.jsx"
 
 function Layout() {
 	return <Background>
@@ -33,7 +35,8 @@ const router = createBrowserRouter([
 			{ path: "/login", element: <Login /> },
 			{ path: "/logout", element: <Login logout={true} /> },
 			{ path: "/profile/:userId", element: <Profile /> },
-			{ path: "/admin/pages", element: <ModalProvider><AdminPageView /></ModalProvider>},
+			{ path: "/admin/pages", element: <PageModalProvider><AdminPageView /></PageModalProvider>},
+			{ path: "/admin/users", element: <UserModalProvider><AdminUserView /></UserModalProvider>},
 			{ path: "*", element: <Page insertedName="404" /> }
 		]
 	}

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import PageBar from "./PageBar"
 import "../styles/barStyles.css"
 

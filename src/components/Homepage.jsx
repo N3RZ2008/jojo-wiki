@@ -10,12 +10,12 @@ export default function Homepage() {
     const [nameList, setNameList] = useState([])
     const [srcList, setSrcList] = useState([])
     const [onlyVerified, setOnlyVerified] = useState(true)
-    const { find, loading } = findAll("stands")
+    const { findAllResults, loadingAll } = findAll("stands")
 
     useEffect(() => {
-        if (!loading) {
-            if (find !== null) {
-                const names = find.map((page) => {
+        if (!loadingAll) {
+            if (findAllResults !== null) {
+                const names = findAllResults.map((page) => {
                     if (page.data.status === "accepted") {
                         if (!(onlyVerified && !page.data.verified)) {
                             return page.data.pageName
@@ -23,7 +23,7 @@ export default function Homepage() {
                         return undefined
                     }
                 })
-                const srcs = find.map((page) => {
+                const srcs = findAllResults.map((page) => {
                     if (page.data.status === "accepted") {
                         if (!(onlyVerified && !page.data.verified)) {
                             return page.data.imgSrc
@@ -38,9 +38,9 @@ export default function Homepage() {
                 console.log("404")
             }
         }
-    }, [loading, onlyVerified])
+    }, [loadingAll, onlyVerified])
 
-    if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loadingAll) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page homepage">
         <h1>Pages</h1>

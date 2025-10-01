@@ -25,7 +25,7 @@ function Menu() {
                     title="Admin"
                 >
                     <NavDropdown.ItemText>
-                        <Link className="menuItem" to={"#"}>Users</Link>
+                        <Link className="menuItem" to={"/admin/users"}>Users</Link>
                     </NavDropdown.ItemText>
                     <NavDropdown.Divider />
                     <NavDropdown.ItemText>

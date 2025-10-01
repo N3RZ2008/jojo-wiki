@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react"
 
 import PageBarGrid from "../listComponents/PageBarGrid"
 import Modal from "../Modal"
-import { ModalContext } from "../ModalProvider"
+import { PageModalContext } from "../PageModalProvider"
 
 import { findAll, updateOne } from "../../database/handleApi"
 
@@ -12,27 +12,27 @@ export default function AdminPageView() {
     const [statusList, setStatusList] = useState([])
     const [verifiedList, setVerifiedList] = useState([])
 
-    const { isOpen, setIsOpen, pageName, defaultStatus, defaultIsVerified } = useContext(ModalContext)
+    const { isOpen, setIsOpen, pageName, defaultStatus, defaultIsVerified } = useContext(PageModalContext)
 
     const [isVerifiedUpdate, setIsVerifiedUpdate] = useState(false)
     const [statusUpdate, setStatusUpdate] = useState("request")
 
     const [refresh, setRefresh] = useState(0)
-    const { find, loading } = findAll("stands", refresh)
+    const { findAllResults, loadingAll } = findAll("stands", refresh)
 
     useEffect(() => {
-        if (!loading) {
-            if (find !== null) {
-                const names = find.map((page) => {
+        if (!loadingAll) {
+            if (findAllResults !== null) {
+                const names = findAllResults.map((page) => {
                     return page.data.pageName
                 })
-                const srcs = find.map((page) => {
+                const srcs = findAllResults.map((page) => {
                     return page.data.imgSrc
                 })
-                const status = find.map((page) => {
+                const status = findAllResults.map((page) => {
                     return page.data.status
                 })
-                const verified = find.map((page) => {
+                const verified = findAllResults.map((page) => {
                     return page.data.verified
                 })
                 setNameList(names)
@@ -44,7 +44,7 @@ export default function AdminPageView() {
                 console.log("404")
             }
         }
-    }, [loading, refresh])
+    }, [loadingAll, refresh])
 
     useEffect(() => {
         setStatusUpdate(defaultStatus)
@@ -80,7 +80,7 @@ export default function AdminPageView() {
         }
     }
 
-    if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loadingAll) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
 
     return <div className="page">
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>

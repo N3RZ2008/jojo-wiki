@@ -1,13 +1,13 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { ModalContext } from "../ModalProvider"
+import { PageModalContext } from "../PageModalProvider"
 
-import { DeleteIcon, DocumentIcon, PencilIcon } from "../icons"
+import { DocumentIcon, PencilIcon } from "../icons"
 
 export default function PageBar({ pageName, imgSrc, status, isVerified }) {
     const navigate = useNavigate()
-    const { setIsOpen, setPageName, setDefaultStatus, setDefaultIsVerified } = useContext(ModalContext)
+    const { setIsOpen, setPageName, setDefaultStatus, setDefaultIsVerified } = useContext(PageModalContext)
 
     const src = imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
     const statusText = `Status: ${status.charAt(0).toUpperCase() + status.slice(1)}`
