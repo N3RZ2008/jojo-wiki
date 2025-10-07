@@ -49,7 +49,7 @@ function Menu() {
                     title="Profile"
                 >
                     <NavDropdown.ItemText>
-                        <Link className="menuItem" to={`/profile/${user?.id}`}>Profile</Link>
+                        <Link className="menuItem" to={`/myprofile`}>Profile</Link>
                     </NavDropdown.ItemText>
                     <NavDropdown.Divider />
                     <NavDropdown.ItemText>

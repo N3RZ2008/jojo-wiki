@@ -12,6 +12,11 @@ export default function Homepage() {
     const [onlyVerified, setOnlyVerified] = useState(true)
     const { findAllResults, loadingAll } = findAll("stands")
 
+    // useEffect(() => {
+    //     console.log(nameList)
+    //     console.log(srcList)
+    // }, [nameList, srcList]);
+
     useEffect(() => {
         if (!loadingAll) {
             if (findAllResults !== null) {
@@ -32,7 +37,7 @@ export default function Homepage() {
                     }
                 })
                 setNameList(names.filter((name) => { return name }))
-                setSrcList(srcs.filter((src) => { return src }))
+                setSrcList(srcs)
             }
             else {
                 console.log("404")

@@ -9,10 +9,12 @@ import { UserModalContext } from "../UserModalProvider"
 export default function AdminUserView() {
     const [idList, setIdList] = useState([])
     const [nameList, setNameList] = useState([])
-    const [emailList, setEmailList] = useState([])
     const [srcList, setSrcList] = useState([])
+    const [roleList, setRoleList] = useState([])
 
-    const { isOpen, setIsOpen, userId, userEmail } = useContext(UserModalContext)
+    const { isOpen, setIsOpen, userId, defaultUserRole, setDefaultUserRole } = useContext(UserModalContext)
+
+    const [roleUpdate, setRoleUpdate] = useState(false)
 
     const [refresh, setRefresh] = useState(0)
     const { findAllResults, loadingAll } = findAll("users", refresh)
@@ -26,17 +28,17 @@ export default function AdminUserView() {
                 const names = findAllResults.map((user) => {
                     return user.userName
                 })
-                const emails = findAllResults.map((user) => {
-                    return user.email
+                const roles = findAllResults.map((user) => {
+                    if (user.isAdmin) return "admin"
+                    return "user"
                 })
                 const srcs = findAllResults.map((user) => {
                     return user.profilePicture
                 })
-                // setNameList(names)
                 setIdList(ids)
                 setNameList(names)
-                setEmailList(emails)
                 setSrcList(srcs)
+                setRoleList(roles)
             }
             else {
                 console.log("404")
@@ -44,17 +46,22 @@ export default function AdminUserView() {
         }
     }, [loadingAll, refresh])
 
+    useEffect(() => {
+        setRoleUpdate(defaultUserRole)
+    }, [defaultUserRole]);
+    
+
     function tryUpdate() {
-        return
+        let isAdmin = false
+        if (roleUpdate === "admin") isAdmin = true
+
         const dataInsert = {
-            "data.status": statusUpdate,
-            "data.verified": isVerifiedUpdate
+            isAdmin: isAdmin
         }
-        updateOne("stands", pageName, dataInsert)
+        updateOne("users", userId, dataInsert)
     }
 
     function handleSubmit(e) {
-        return
         e.preventDefault()
         try {
             tryUpdate()
@@ -70,10 +77,21 @@ export default function AdminUserView() {
 
     return <div className="page">
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-            <h3>Id: {userId}</h3>
-            <h3>Email: {userEmail}</h3>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Role:
+                    <select
+                        defaultValue={defaultUserRole}
+                        onChange={e => { setDefaultUserRole(e.target.value) }}
+                    >
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </label>
+                <button type="submit">Submit Changes</button>
+            </form>
         </Modal>
         <h1>Users</h1>
-        <UserBarGrid quantity={idList.length} ids={idList} names={nameList} emails={emailList} srcs={srcList} />
+        <UserBarGrid quantity={idList.length} ids={idList} names={nameList} srcs={srcList} roles={roleList} />
     </div>
 }

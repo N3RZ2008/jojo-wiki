@@ -15,6 +15,7 @@ import AdminUserView from "./components/adminComponents/AdminUserView.jsx"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageModalProvider from "./components/PageModalProvider.jsx"
 import UserModalProvider from "./components/UserModalProvider.jsx"
+import MyProfile from "./components/authComponents/MyProfile.jsx"
 
 function Layout() {
 	return <Background>
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
 			{ path: "/login", element: <Login /> },
 			{ path: "/logout", element: <Login logout={true} /> },
 			{ path: "/profile/:userId", element: <Profile /> },
+			{ path: "/myprofile", element: <MyProfile /> },
 			{ path: "/admin/pages", element: <PageModalProvider><AdminPageView /></PageModalProvider>},
 			{ path: "/admin/users", element: <UserModalProvider><AdminUserView /></UserModalProvider>},
 			{ path: "*", element: <Page insertedName="404" /> }
