@@ -19,7 +19,37 @@
     z-index: 9998;
 }
 
-.modalDiv > div {
+.modalDiv>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    width: 100%;
+    height: 100%;
+}
+
+.sideModalDiv {
+    background-color: hsla(0, 0%, 0%, 0.7);
+    height: 100vh;
+    width: max(500px, 30%);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    z-index: 9999;
+}
+
+.sideModalBackground {
+    background-color: hsla(0, 0%, 0%, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+}
+
+.sideModalDiv>div {
     display: flex;
     flex-direction: column;
     align-items: center;
