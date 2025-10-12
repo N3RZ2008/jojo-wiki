@@ -7,9 +7,10 @@ export default function PageModalProvider({children}) {
     const [defaultStatus, setDefaultStatus] = useState("Undefined")
     const [defaultIsVerified, setDefaultIsVerified] = useState("Undefined")
     const [isOpen, setIsOpen] = useState(false)
+    const [refresh, setRefresh] = useState(0)
 
     return <>
-        <PageModalContext.Provider value={{isOpen, setIsOpen, pageName, setPageName, defaultStatus, setDefaultStatus, defaultIsVerified, setDefaultIsVerified}}>
+        <PageModalContext.Provider value={{isOpen, setIsOpen, pageName, setPageName, defaultStatus, setDefaultStatus, defaultIsVerified, setDefaultIsVerified, refresh, setRefresh}}>
             {children}
         </PageModalContext.Provider>
     </>

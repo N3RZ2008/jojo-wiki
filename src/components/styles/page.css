@@ -1,17 +1,22 @@
 .page {
     margin: 0 auto;
     height: 90vh;
-    width: calc(100vw - 120px);
-    margin: 0 60px;
-    padding: 30px 30px;
+    width: calc(100vw - 500px);
+    padding: 30px 100px;
     padding-bottom: 150px;
     background-color: hsla(0, 0%, 0%, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 5px;
     overflow-y: scroll;
     scrollbar-width: none;
+}
+
+@media screen and (max-width: 1300px) {
+    .page {
+        width: max(500px, 70vw);
+    }
 }
 
 .editMenu {

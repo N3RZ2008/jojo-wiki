@@ -3,15 +3,22 @@ import { useNavigate } from "react-router-dom"
 
 import { PageModalContext } from "../PageModalProvider"
 
-import { DocumentIcon, PencilIcon } from "../icons"
+import { DeleteIcon, DocumentIcon, PencilIcon } from "../icons"
+import { deleteOne } from "../../database/handleApi"
 
 export default function PageBar({ pageName, imgSrc, status, isVerified }) {
     const navigate = useNavigate()
-    const { setIsOpen, setPageName, setDefaultStatus, setDefaultIsVerified } = useContext(PageModalContext)
+    const { setIsOpen, setPageName, setDefaultStatus, setDefaultIsVerified, refresh, setRefresh } = useContext(PageModalContext)
 
     const src = imgSrc ? imgSrc : "https://www.svgrepo.com/show/508699/landscape-placeholder.svg"
     const statusText = `Status: ${status.charAt(0).toUpperCase() + status.slice(1)}`
     const verifiedText = `${!isVerified ? "Not " : ""}Verified`
+
+    function tryDelete() {
+        const check = confirm("Are you sure?")
+        if (!check) return
+        deleteOne("stands", pageName)
+    }
 
     return <div className="barItem">
         <div className="pageData">
@@ -24,12 +31,13 @@ export default function PageBar({ pageName, imgSrc, status, isVerified }) {
         </div>
         <div className="actions">
             <button className="actionButton" onClick={() => { navigate(`/page/${pageName}`) }} ><DocumentIcon /></button>
-            <button className="actionButton" onClick={() => { 
-                setIsOpen(true) 
-                setPageName(pageName) 
+            <button className="actionButton" onClick={() => {
+                setIsOpen(true)
+                setPageName(pageName)
                 setDefaultStatus(status)
                 setDefaultIsVerified(isVerified)
-                }} ><PencilIcon /></button>
+            }} ><PencilIcon /></button>
+            <button className="actionButton" onClick={tryDelete} ><DeleteIcon /></button>
         </div>
     </div>
 }

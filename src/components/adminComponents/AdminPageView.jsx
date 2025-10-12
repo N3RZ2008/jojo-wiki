@@ -12,12 +12,11 @@ export default function AdminPageView() {
     const [statusList, setStatusList] = useState([])
     const [verifiedList, setVerifiedList] = useState([])
 
-    const { isOpen, setIsOpen, pageName, defaultStatus, defaultIsVerified } = useContext(PageModalContext)
+    const { isOpen, setIsOpen, pageName, defaultStatus, defaultIsVerified, refresh, setRefresh } = useContext(PageModalContext)
 
     const [isVerifiedUpdate, setIsVerifiedUpdate] = useState(false)
     const [statusUpdate, setStatusUpdate] = useState("request")
 
-    const [refresh, setRefresh] = useState(0)
     const { findAllResults, loadingAll } = findAll("stands", refresh)
 
     useEffect(() => {

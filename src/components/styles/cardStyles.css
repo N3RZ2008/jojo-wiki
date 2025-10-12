@@ -36,19 +36,19 @@
     border-radius: 20px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1700px) {
     .cardGrid {
         grid-template-columns: 33% 33% 33%;
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1450px) {
     .cardGrid {
         grid-template-columns: 50% 50%;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1250px) {
     .cardGrid {
         grid-template-columns: 100%;
     }
