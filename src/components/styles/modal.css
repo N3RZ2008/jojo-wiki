@@ -2,6 +2,7 @@
     padding: 10px;
     background-color: hsla(0, 0%, 0%, 0.7);
     height: 50vh;
+    top: 100%;
     width: 50%;
     position: fixed;
     transform: translate(50%, 50%);
@@ -10,14 +11,27 @@
     justify-content: flex-start;
     align-items: flex-end;
     z-index: 9999;
+    transition: transform 0.3s;
+}
+
+.modalDiv.show {
+    transform: translate(50%, -150%);
 }
 
 .modalBackground {
     background-color: hsla(0, 0%, 0%, 0.3);
+    opacity: 0;
     position: fixed;
+    top: 100%;
     width: 100%;
     height: 100%;
     z-index: 9998;
+    transition: opacity 0.3s;
+}
+
+.modalBackground.show {
+    transform: translateY(-100%);
+    opacity: 1
 }
 
 .modalDiv>div {
@@ -33,6 +47,7 @@
 .sideModalDiv {
     background-color: hsla(0, 0%, 0%, 0.7);
     height: 100vh;
+    left: min(-500px, -30%);
     width: max(500px, 30%);
     padding: 10px;
     position: fixed;
@@ -41,12 +56,15 @@
     justify-content: flex-start;
     align-items: flex-end;
     z-index: 9999;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sideModalDiv.show {
+    transform: translateX(max(500px, 30%));
 }
 
 .sideModalBackground {
-    background-color: hsla(0, 0%, 0%, 0.3);
     position: fixed;
-    width: 100%;
     height: 100%;
     z-index: 9998;
 }

@@ -36,7 +36,7 @@ export default function Profile() {
         alert("Sucessfully updated user")
     }
     
-    if (loading || loadingAll || loadingUser) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loading || loadingAll || loadingUser) return <div className="page"><h1>Loading...</h1></div>
     if (userSelected === null) return <div className="page">User Not Found</div>
 
     return <div className="page">
@@ -71,6 +71,5 @@ export default function Profile() {
             </div>
             <button onClick={handleSubmit} >Submit Changes</button>
         </div>
-        <button onClick={() => { console.log(userSelected) }}>debug</button>
     </div>
 }

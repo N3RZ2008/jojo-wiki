@@ -28,7 +28,7 @@ const componentMap = {
     image: Image
 }
 
-function DynamicRenderer({ layout, editMode, updater, deleter, mover}) {
+function DynamicRenderer({ layout, editMode, updater, deleter, mover }) {
     return (
         layout.map(
             (item, index) => {
@@ -83,16 +83,14 @@ function Page() {
                 if (insertedName === undefined) {
                     setAddMode(true)
                     setPage([])
+                    setPageName("")
+                    setImgSrc("")
                 } else {
                     setPage(errorPage)
                 }
             }
         }
     }, [find, loading])
-
-    useEffect(() => {
-        console.log()
-    }, [page])
 
     function switchMode() {
         if (user === null) return alert("Login first")
@@ -184,11 +182,11 @@ function Page() {
     }
 
     function moveComp(p) {
-        if (p<0 || p>=page.length-1) return
+        if (p < 0 || p >= page.length - 1) return
         setPage(
             page.map((comp, index) => {
-                if (index == p) return page[p+1]
-                if (index == p+1) return page[p]
+                if (index == p) return page[p + 1]
+                if (index == p + 1) return page[p]
                 return comp
             })
         )
@@ -235,7 +233,7 @@ function Page() {
         navigate("/")
     }
 
-    if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loading) return <div className="page"><h1>Loading...</h1></div>
 
     return <div className="page">
         <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} mover={moveComp} />

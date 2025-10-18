@@ -18,7 +18,7 @@ export default function Profile() {
         }
     }, [find, loading])
 
-    if (loading) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loading) return <div className="page"><h1>Loading...</h1></div>
     if (userSelected === null) return <div className="page">User Not Found</div>
 
     return <div className="page">
@@ -38,6 +38,5 @@ export default function Profile() {
                 <p>{userSelected?.desc ? userSelected?.desc : "Nothing here"}</p>
             </div>
         </div>
-        <button onClick={() => { console.log(userSelected?.desc !== undefined) }}>debug</button>
     </div>
 }

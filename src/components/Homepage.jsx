@@ -35,11 +35,7 @@ export default function Homepage() {
         }
     }, [loadingAll, onlyVerifiedFilter, nameFilter])
 
-    useEffect(() => {
-        console.log(pages)
-    }, []);
-
-    if (loadingAll) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loadingAll) return <div className="page"><h1>Loading...</h1></div>
 
     return <div className="page homepage">
         <SideModal open={isOpen} onClose={() => setIsOpen(false)}>
@@ -61,7 +57,12 @@ export default function Homepage() {
 
         <CardGrid quantity={pages.length} pages={pages} />
         {ReactDOM.createPortal(
-            <button className="editMenuButton" onClick={() => { setIsOpen(true) }}><FilterIcon/></button>,
+            <button className="editMenuButton" onClick={() => { 
+                if (isOpen) {
+                    return setIsOpen(false)
+                }
+                setIsOpen(true)
+             }}><FilterIcon/></button>,
             document.getElementById("switch-edit-root")
         )}
     </div>

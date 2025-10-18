@@ -73,7 +73,7 @@ export default function AdminUserView() {
         }
     }
 
-    if (loadingAll) return <div className="page"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQib-ueHzsv9SSi7d5Alg9wvb3IvvCgCnzNdg&s" alt="" />perae...</div>
+    if (loadingAll) return <div className="page"><h1>Loading...</h1></div>
 
     return <div className="page">
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
