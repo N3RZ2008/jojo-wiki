@@ -3,6 +3,6 @@ export default function Card({ pageName, imgSrc }) {
 
     return <div className="cardItem">
         <img src={src} alt="" />
-        <h1>{pageName ? pageName : "Untitled"}</h1>
+        <h2 title={pageName ? pageName : "Untitled"}>{pageName ? pageName : "Untitled"}</h2>
     </div>
 }

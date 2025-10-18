@@ -21,7 +21,12 @@
     border-radius: 20px;
 }
 
-.cardItem h1 {
+.cardItem:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cardItem h2 {
     padding: 0 10px;
     min-width: 0;
     white-space: nowrap;

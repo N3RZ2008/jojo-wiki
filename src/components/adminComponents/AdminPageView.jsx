@@ -46,15 +46,18 @@ export default function AdminPageView() {
     }, [loadingAll, refresh])
 
     useEffect(() => {
-        setStatusUpdate(defaultStatus)
-        setIsVerifiedUpdate(defaultIsVerified)
-    }, [defaultStatus, defaultIsVerified])
+        if (defaultStatus) setStatusUpdate(defaultStatus)
+    }, [defaultStatus])
 
     useEffect(() => {
-        if(isVerifiedUpdate === "true") {
+        setIsVerifiedUpdate(defaultIsVerified)
+    }, [defaultIsVerified])
+
+    useEffect(() => {
+        if (isVerifiedUpdate === "true") {
             setIsVerifiedUpdate(true)
         }
-        if(isVerifiedUpdate === "false") {
+        if (isVerifiedUpdate === "false") {
             setIsVerifiedUpdate(false)
         }
     }, [isVerifiedUpdate])
@@ -72,7 +75,7 @@ export default function AdminPageView() {
         try {
             tryUpdate()
             alert("Sucessfully updated page")
-            setRefresh(refresh+1)
+            setRefresh(refresh + 1)
             setIsOpen(false)
         } catch (error) {
             alert(error.message)
@@ -88,7 +91,7 @@ export default function AdminPageView() {
                 <label>
                     Status:
                     <select
-                        defaultValue={defaultStatus}
+                        value={statusUpdate}
                         onChange={e => { setStatusUpdate(e.target.value) }}
                     >
                         <option value="request">Request</option>
@@ -99,7 +102,7 @@ export default function AdminPageView() {
                 <label>
                     Verification:
                     <select
-                        defaultValue={defaultIsVerified}
+                        value={isVerifiedUpdate}
                         onChange={e => { setIsVerifiedUpdate(e.target.value) }}
                     >
                         <option value={true}>Verified</option>
