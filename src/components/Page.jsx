@@ -5,6 +5,8 @@ import ReactDOM from "react-dom"
 import { Heading, Paragraph, TwoParagraph, Image } from "./pageComponents"
 import { AuthContext } from "./authComponents/AuthProvider.jsx"
 import Modal from "./Modal.jsx"
+import Footer from "./Footer.jsx"
+import CreatorInfo from "./CreatorInfo.jsx"
 
 import {
     DeleteIcon,
@@ -57,6 +59,7 @@ function Page() {
     const [addMode, setAddMode] = useState(false)
     const [pageName, setPageName] = useState("")
     const [pageUser, setPageUser] = useState("")
+    const [creator, setCreator] = useState()
     const [imgSrc, setImgSrc] = useState("")
     const errorPage = [
         {
@@ -91,6 +94,22 @@ function Page() {
             }
         }
     }, [find, loading])
+
+    useEffect(() => {
+        if (!pageUser) return
+        const fetchCreator = async () => {
+            try {
+                const res = await fetch(`${api}/users/${pageUser}`)
+                const data = await res.json()
+                if (!data.error) {
+                    setCreator(data)
+                }
+            } catch (err) {
+                console.error("Error finding the creator:", err)
+            }
+        }
+        fetchCreator()
+    }, [pageUser]);
 
     function switchMode() {
         if (user === null) return alert("Login first")
@@ -237,6 +256,7 @@ function Page() {
 
     return <div className="page">
         <DynamicRenderer layout={page} editMode={editMode} updater={updateComp} deleter={deleteComp} mover={moveComp} />
+        <Footer />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
             {addMode ? <>
                 <h1>Add Page</h1>
@@ -275,6 +295,9 @@ function Page() {
                 </>
             }
         </Modal>
+        <CreatorInfo creatorId={pageUser} creatorName={creator?.userName} >
+            <img src={creator?.profilePicture ?? "https://questhowth.ie/wp-content/uploads/2018/04/user-placeholder.png"} alt="" />
+        </CreatorInfo>
         {checkPerm() &&
             ReactDOM.createPortal(
                 <button className="editMenuButton switchMode" onClick={switchMode}><PencilIcon /></button>,

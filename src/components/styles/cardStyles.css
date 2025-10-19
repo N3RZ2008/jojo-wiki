@@ -37,8 +37,28 @@
 .cardItem img {
     width: 80%;
     height: 20vh;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 20px;
+}
+
+.cardItem .creator {
+    padding: 0 20%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.cardItem .creator p {
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardItem .creator img {
+    height: fit-content;
+    width: 25px;
+    align-self: flex-end;
 }
 
 @media screen and (max-width: 1700px) {

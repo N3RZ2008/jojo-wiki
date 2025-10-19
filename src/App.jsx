@@ -10,7 +10,7 @@ import Login from "./components/authComponents/LogIn.jsx"
 import Profile from "./components/authComponents/Profile.jsx"
 
 import AdminPageView from "./components/adminComponents/AdminPageView.jsx"
-import AdminUserView from "./components/adminComponents/AdminUserView.jsx" 
+import AdminUserView from "./components/adminComponents/AdminUserView.jsx"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageModalProvider from "./components/PageModalProvider.jsx"
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
 			{ path: "/logout", element: <Login logout={true} /> },
 			{ path: "/profile/:userId", element: <Profile /> },
 			{ path: "/myprofile", element: <MyProfile /> },
-			{ path: "/admin/pages", element: <PageModalProvider><AdminPageView /></PageModalProvider>},
-			{ path: "/admin/users", element: <UserModalProvider><AdminUserView /></UserModalProvider>},
+			{ path: "/admin/pages", element: <PageModalProvider><AdminPageView /></PageModalProvider> },
+			{ path: "/admin/users", element: <UserModalProvider><AdminUserView /></UserModalProvider> },
 			{ path: "*", element: <Page insertedName="404" /> }
 		]
 	}

@@ -47,7 +47,7 @@ export default function Profile() {
                     <img src={userPfp} alt="" />
                     <input
                         type="text"
-                        defaultValue={userPfp}
+                        value={userPfp}
                         onChange={(e) => { setUserPfp(e.target.value) }}
                     />
                 </div>
@@ -55,7 +55,7 @@ export default function Profile() {
                     <label>Username:
                         <input
                             type="text"
-                            defaultValue={userName}
+                            value={userName}
                             onChange={(e) => { setUserName(e.target.value) }}
                         />
                     </label>
@@ -65,7 +65,7 @@ export default function Profile() {
             </div>
             <div className="desc">
                 <textarea
-                    defaultValue={userDesc}
+                    value={userDesc}
                     onChange={(e) => { setUserDesc(e.target.value) }}
                 />
             </div>

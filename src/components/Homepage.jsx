@@ -25,7 +25,8 @@ export default function Homepage() {
                 .filter(page => page.data.pageName?.toLowerCase().includes(nameFilter.toLowerCase()))
                 .map(page => ({
                     name: page.data.pageName,
-                    src: page.data.imgSrc
+                    src: page.data.imgSrc,
+                    userId: page.data.userId
                 }))
                 setPages(pages)
             }
