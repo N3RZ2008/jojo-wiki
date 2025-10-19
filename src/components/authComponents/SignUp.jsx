@@ -13,7 +13,7 @@ export default function SignUp() {
     function tryInsert(id, email) {
         const userInsert = {
             userId: id,
-            isAdmin: false,
+            role: "user",
             profilePicture: "https://questhowth.ie/wp-content/uploads/2018/04/user-placeholder.png",
             email: email
         }

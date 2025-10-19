@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
 
 import { findAll, findOne, updateOne } from "../../database/handleApi"
 import { AuthContext } from "./AuthProvider"
@@ -60,7 +59,7 @@ export default function Profile() {
                         />
                     </label>
                     <p>Email: {userSelected?.email}</p>
-                    <p>Role: {userSelected?.isAdmin ? "Admin" : "User"}</p>
+                    <p>Role: {userSelected?.role.charAt(0).toUpperCase() + userSelected?.role.slice(1)}</p>
                 </div>
             </div>
             <div className="desc">

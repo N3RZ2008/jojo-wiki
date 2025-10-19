@@ -12,7 +12,7 @@ export default function AdminUserView() {
     const [srcList, setSrcList] = useState([])
     const [roleList, setRoleList] = useState([])
 
-    const { isOpen, setIsOpen, userId, defaultUserRole, setDefaultUserRole } = useContext(UserModalContext)
+    const { isOpen, setIsOpen, userId, defaultUserRole } = useContext(UserModalContext)
 
     const [roleUpdate, setRoleUpdate] = useState(false)
 
@@ -29,8 +29,7 @@ export default function AdminUserView() {
                     return user.userName
                 })
                 const roles = findAllResults.map((user) => {
-                    if (user.isAdmin) return "admin"
-                    return "user"
+                    return user.role
                 })
                 const srcs = findAllResults.map((user) => {
                     return user.profilePicture
@@ -49,7 +48,7 @@ export default function AdminUserView() {
     useEffect(() => {
         setRoleUpdate(defaultUserRole)
     }, [defaultUserRole]);
-    
+
 
     function tryUpdate() {
         let isAdmin = false
@@ -80,13 +79,19 @@ export default function AdminUserView() {
             <form onSubmit={handleSubmit}>
                 <label>
                     Role:
-                    <select
-                        defaultValue={defaultUserRole}
-                        onChange={e => { setDefaultUserRole(e.target.value) }}
-                    >
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
+                    {
+                        defaultUserRole === "owner" ?
+                            <select disabled>
+                                <option value="owner">Owner</option>
+                            </select> :
+                            <select
+                                value={roleUpdate}
+                                onChange={e => { setRoleUpdate(e.target.value) }}
+                            >
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                    }
                 </label>
                 <button type="submit">Submit Changes</button>
             </form>

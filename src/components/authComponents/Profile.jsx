@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { findAll, findOne, updateOne } from "../../database/handleApi"
-import { AuthContext } from "./AuthProvider"
+import { findOne } from "../../database/handleApi"
 
 import "../styles/page.css"
 import "../styles/profile.css"
@@ -31,7 +30,7 @@ export default function Profile() {
                 <div className="infoText">
                     <p>Username: {userSelected?.userName}</p>
                     <p>Email: {userSelected?.email}</p>
-                    <p>Role: {userSelected?.isAdmin ? "Admin" : "User"}</p>
+                    <p>Role: {userSelected?.role.charAt(0).toUpperCase() + userSelected?.role.slice(1)}</p>
                 </div>
             </div>
             <div className="desc">
