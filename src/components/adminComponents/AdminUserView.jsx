@@ -51,11 +51,8 @@ export default function AdminUserView() {
 
 
     function tryUpdate() {
-        let isAdmin = false
-        if (roleUpdate === "admin") isAdmin = true
-
         const dataInsert = {
-            isAdmin: isAdmin
+            role: roleUpdate
         }
         updateOne("users", userId, dataInsert)
     }

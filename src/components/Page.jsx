@@ -238,9 +238,11 @@ function Page() {
 
         const dataInsert = {
             page: page,
-            "data.status": "request",
-            "data.verified": false
+            "data.imgSrc": imgSrc
+            // "data.status": "request",
+            // "data.verified": false
         }
+
         updateOne("stands", pageName, dataInsert)
         alert("Sucessfully updated page")
     }

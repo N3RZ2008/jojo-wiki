@@ -91,7 +91,7 @@ export function useCheckAdmin(userId) {
                 return res.json()
             })
             .then(data => {
-                if (data.role === "user") setIsAdmin(false)
+                if (data.role === "user") return setIsAdmin(false)
                 setIsAdmin(true)
             })
             .catch(() => {

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { AuthContext } from "./authComponents/AuthProvider.jsx"
@@ -13,12 +13,6 @@ function Menu() {
         <div className="menu">
             <Link className="menuItem" to={"/"}>Homepage</Link>
             <Link className="menuItem" to={"/page"}>Create Page</Link>
-            {/* <Link className="menuA" to={"/"}>
-                <div className="menuItem">Homepage</div>
-            </Link>
-            <Link className="menuA" to={"/page"}>
-                <div className="menuItem">Create Page</div>
-            </Link> */}
 
             {isAdmin &&
                 <NavDropdown

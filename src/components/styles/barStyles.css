@@ -14,7 +14,6 @@
 
 .barItem {
     display: flex;
-    min-width: fit-content;
     align-items: center;
     padding: 20px 20px;
     text-align: center;
@@ -40,7 +39,7 @@
 }
 
 .pageData {
-    width: 60%;
+    width: 50%;
     display: flex;
 }
 
